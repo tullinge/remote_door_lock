@@ -1,0 +1,3 @@
+DROP TABLE RDL_users
+DROP TABLE RDL_log
+
