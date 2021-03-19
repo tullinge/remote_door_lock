@@ -1,0 +1,41 @@
+<?php
+include('../config.php');
+include('../index.php');
+
+// Checks i f person got sent to the script file thrue the open button
+if (isset($_POST['open-submit'])) {
+
+    if (empty($given_name) || empty($family_name) || empty($email)) {
+        //Destroy entire session data.s
+        session_destroy();
+        header('Location: ../index.php?err=not-loged-in-properly');
+        exit();
+    }
+    else {
+        /*$sql = "INSERT INTO users (userid, userpassword) VALUES (?, ?)";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header('Location: ../index.php?err=sqlerr2');
+            exit();
+        }
+        else {
+            $hacheduserpassword = password_hash($userpassword, PASSWORD_DEFAULT);
+
+            mysqli_stmt_bind_param($stmt, 'ss', $userid, $hacheduserpassword);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+            header('Location: ../index.php?index=success');
+            exit();
+        }*/
+        header('Location: ../index.php?sus=door-opened');
+        exit();
+    }
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+ 
+}
+else  {
+    header('Location: ../index.php?err=Dont-be-a-dick');
+    exit();
+}
