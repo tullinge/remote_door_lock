@@ -87,7 +87,12 @@ if(!isset($_SESSION['access_token']))
     echo '<img src="'.$_SESSION["user_image"].'" class="img-responsive img-circle img-thumbnail" />';
     echo '<h3><b>Name :</b> '.$_SESSION['user_first_name'].' '.$_SESSION['user_last_name'].'</h3>';
     echo '<h3><b>Email :</b> '.$_SESSION['user_email_address'].'</h3>';
-    echo '<h3><a href="logout.php">Logout</h3></div>';
+
+    echo '<form action="scrips/logout-script.php" method="post">';
+    echo '<button type="submit" name="logout-submit">';
+    echo '<p>LOGOUT</p>';
+    echo '</button>';
+
     echo '<form action="scrips/open-script.php" method="post">';
     echo '<button type="submit" name="open-submit">';
     echo '<p>OPEN DOOR</p>';
