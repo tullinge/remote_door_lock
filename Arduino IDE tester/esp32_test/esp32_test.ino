@@ -80,7 +80,7 @@ void loop(){
             client.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>");
                      
       
-            client.println("</head><body><h1>ESP32 with Servo</h1>");
+            client.println("</head><body><h1>open door</h1>");
             client.println("<p>Position: <span id=\"servoPos\"></span></p>");          
             client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider\" id=\"servoSlider\" onchange=\"servo(this.value)\" value=\""+valueString+"\"/>");
             
@@ -90,6 +90,8 @@ void loop(){
             client.println("$.ajaxSetup({timeout:1000}); function servo(pos) { ");
             client.println("$.get(\"/?value=\" + pos + \"&\"); {Connection: close};}</script>");
            
+            client.println("<button>open</button>");
+            
             client.println("</body></html>");     
             
         
