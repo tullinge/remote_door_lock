@@ -1,6 +1,9 @@
 <?php
 include('../config.php');
-include('../index.php');
+
+require '../index.php';
+
+require '../Database/db_connection.php';
 
 // Checks i f person got sent to the script file thrue the open button
 if (isset($_POST['open-submit'])) {
@@ -12,30 +15,28 @@ if (isset($_POST['open-submit'])) {
         exit();
     }
     else {
-        /*$sql = "INSERT INTO users (userid, userpassword) VALUES (?, ?)";
+        $sql = "INSERT INTO RDL_log (given_name, family_name, email) VALUES (?, ?, ?)";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header('Location: ../index.php?err=sqlerr2');
+
+            header('Location: ../index.php?err=sqlerr1');
             exit();
         }
         else {
-            $hacheduserpassword = password_hash($userpassword, PASSWORD_DEFAULT);
-
-            mysqli_stmt_bind_param($stmt, 'ss', $userid, $hacheduserpassword);
+            mysqli_stmt_bind_param($stmt, 'sss', $given_name, $family_name, $email);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_store_result($stmt);
-            header('Location: ../index.php?index=success');
+
+            header('Location: ../index.php?sus=door-opened');
             exit();
-        }*/
-        header('Location: ../index.php?sus=door-opened');
-        exit();
+        }
     }
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
  
 }
 else  {
-    header('Location: ../index.php?err=Dont-be-a-dick');
+    header('Location: ../index.php?err=Dont-even-try');
     exit();
 }
