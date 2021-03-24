@@ -1,3 +1,2 @@
-DROP TABLE RDL_moderators;
 DROP TABLE RDL_users;
 DROP TABLE RDL_log;
