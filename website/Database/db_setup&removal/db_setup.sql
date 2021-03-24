@@ -1,10 +1,10 @@
-CREATE TABLE RDL_admins (
+CREATE TABLE RDL_moderators (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`given_name` VARCHAR(50) NOT NULL,
 	`family_name` VARCHAR(50) NOT NULL,
 	`email` VARCHAR(150) NOT NULL,
-	`admin_master` BOOLEAN NOT NULL DEFAULT FALSE,
-	`added_by` VARCHAR(50) NOT NULL,
+	`admin` BOOLEAN NOT NULL DEFAULT FALSE,
+	`added_by` VARCHAR(150) NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE RDL_users (
@@ -12,7 +12,7 @@ CREATE TABLE RDL_users (
 	`given_name` VARCHAR(50) NOT NULL,
 	`family_name` VARCHAR(50) NOT NULL,
 	`email` VARCHAR(150) NOT NULL,
-	`added by` VARCHAR(50) NOT NULL,
+	`added by` VARCHAR(150) NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE RDL_log (
