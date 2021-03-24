@@ -1,21 +1,25 @@
+CREATE TABLE RDL_admins (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`given_name` VARCHAR(50) NOT NULL,
+	`family_name` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(150) NOT NULL,
+	`admin_master` BOOLEAN NOT NULL DEFAULT FALSE,
+	`added_by` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (id)
+);
 CREATE TABLE RDL_users (
-	id INT NOT NULL AUTO_INCREMENT,
-	first_name VARCHAR(50) DEFAULT NULL,
-	last_name VARCHAR(50) DEFAULT NULL,
-	email VARCHAR(150) DEFAULT NULL,
-    free_access bit DEFAULT 0,
-	site_admin bit DEFAULT 0,
-    inactive bit DEFAULT 0,
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`given_name` VARCHAR(50) NOT NULL,
+	`family_name` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(150) NOT NULL,
+	`added by` VARCHAR(50) NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE RDL_log (
-    id INT NOT NULL AUTO_INCREMENT,
-	first_name VARCHAR(50) DEFAULT NULL,
-	last_name VARCHAR(50) DEFAULT NULL,
-	email VARCHAR(150) NOT NULL,
-    free_access bit DEFAULT 0,
-	site_admin bit DEFAULT 0,
-    inactive bit DEFAULT 0,
-	time VARCHAR(10) NOT NULL,
+    `id` INT NOT NULL AUTO_INCREMENT,
+	`given_name` VARCHAR(50) NOT NULL,
+	`family_name` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(150) NOT NULL,
+	`time` TIMESTAMP NOT NULL DEFAULT NOW(),
 	PRIMARY KEY (id)
 );
