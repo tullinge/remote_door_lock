@@ -90,4 +90,46 @@ if(!isset($_SESSION['access_token']))
    }
    ?>
  </body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title>RDL</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <?php
+            $given_name = $_SESSION['given_name'];
+            $family_name = $_SESSION['family_name'];
+            $email = $_SESSION['email'];
+            //$a = '1';
+            if($login_button == '')
+            {
+                echo '<img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />';
+                echo '<p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>';
+
+                echo '<form action="scripts/logout-script.php" method="post">';
+                echo '<button type="submit" name="logout-submit"><p>LOGOUT</p></button>';
+                echo '</form>';
+
+                echo '<form action="scripts/open-script.php" method="post">';
+                echo '<button type="submit" name="open-submit"><p>OPEN DOOR</p></button>';
+                echo '</form>';
+                /*if(!$a == '1')
+                {
+                    echo '<form action="scripts/admin-script.php" method="post">';
+                    echo 'Firstname: <input type="text" name="given_name"><br>';
+                    echo 'Lastname: <input type="text" name="family_name"><br>';
+                    echo 'Email: <input type="text" name="email"><br>';
+                    echo '<button type="submit" name="admin-submit">ADD ADMIN</button>';
+                    echo '</form>';
+                }*/
+
+            }
+            else
+            {
+                echo '<div">'.$login_button . '</div>';
+            }
+        ?>
+    </body>
 </html>
