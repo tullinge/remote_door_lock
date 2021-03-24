@@ -3,7 +3,7 @@ include('../config.php');
 
 require '../index.php';
 
-require '../Database/db_connection.php';
+require '../database/db_connection.php';
 
 // Checks i f person got sent to the script file thrue the open button
 if (isset($_POST['open-submit'])) {
