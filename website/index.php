@@ -67,9 +67,9 @@ if(!isset($_SESSION['access_token']))
  <body>
    <?php
 
-    $given_name = $_SESSION['given_name'];
-    $family_name = $_SESSION['family_name'];
-    $email = $_SESSION['email'];
+    $given_name  = strtolower($_SESSION['given_name']);
+    $family_name = strtolower($_SESSION['family_name']);
+    $email = strtolower($_SESSION['email']);
 
    if($login_button == '')
    {
