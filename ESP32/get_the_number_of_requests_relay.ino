@@ -7,6 +7,7 @@ int relaypin = 13;
 int oldvalue = 1;
 int value = 1;
 int led = 14;
+int initoldvalue = 0;
 
 const char* ssid = "SSID"; // The name of your wifi
 const char* password = "PASSWORD"; // Ypur wifi password
@@ -58,12 +59,16 @@ void loop() {
       
       // Send HTTP GET request
       int httpResponseCode = http.GET();
+      Serial.println(httpResponseCode);
       
       
-      
-      if (httpResponseCode>0) {
+      if (httpResponseCode == 200) {
         String payload = http.getString();
         int value = atoi(payload.c_str());
+        if (initoldvalue == 0){
+         oldvalue = value;
+         initoldvalue = 1;
+        }
         Serial.println(value);
         Serial.println(oldvalue);
         Serial.println();
@@ -72,6 +77,7 @@ void loop() {
           delay(1000);
           digitalWrite(relaypin, LOW);
           oldvalue = value; 
+          
         }
         else {
           
