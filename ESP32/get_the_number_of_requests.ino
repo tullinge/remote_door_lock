@@ -1,11 +1,21 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <Servo.h>
+#include <Stdlib.h>
 
-const char* ssid = "Makerspace Lab";
-const char* password = "KungEinar20";
+Servo myservo;
+
+int pos = 0;
+int servoPin = 13;
+int oldvalue = 1;
+int value = 1;
+int led = 14;
+
+const char* ssid = "SSID"; // The name of your wifi
+const char* password = "PASSWORD"; // Ypur wifi password
 
 //Your Domain name with URL path or IP address with path
-String serverName = "http://rdl.swe3d.com/api/RDL_5303.php";
+String serverName = "HTTP://URL.COM";
 
 // the following variables are unsigned longs because the time, measured in
 // milliseconds, will quickly become a bigger number than can be stored in an int.
@@ -17,7 +27,7 @@ unsigned long timerDelay = 5000;
 
 void setup() {
   Serial.begin(115200); 
-
+  myservo.attach(13);
   WiFi.begin(ssid, password);
   Serial.println("Connecting");
   while(WiFi.status() != WL_CONNECTED) {
@@ -29,16 +39,20 @@ void setup() {
   Serial.println(WiFi.localIP());
  
   Serial.println("Timer set to 5 seconds (timerDelay variable), it will take 5 seconds before publishing the first reading.");
+  pinMode(led, OUTPUT);
+  digitalWrite(led, LOW);
+  
 }
 
 void loop() {
+  digitalWrite(led, LOW);
   //Send an HTTP POST request every 10 minutes
   if ((millis() - lastTime) > timerDelay) {
     //Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED){
       HTTPClient http;
-
-      String serverPath = serverName + "?temperature=24.37";
+      digitalWrite(led, HIGH);
+      String serverPath = serverName;
       
       // Your Domain name with URL path or IP address with path
       http.begin(serverPath.c_str());
@@ -46,16 +60,31 @@ void loop() {
       // Send HTTP GET request
       int httpResponseCode = http.GET();
       
+      
+      
       if (httpResponseCode>0) {
-        Serial.print("HTTP Response code: ");
-        Serial.println(httpResponseCode);
         String payload = http.getString();
-        Serial.println(payload);
+        int value = atoi(payload.c_str());
+        Serial.println(value);
+        Serial.println(oldvalue);
+        Serial.println();
+        if (oldvalue<value) {
+          myservo.write(60);
+          delay(1000);
+          myservo.write(150);
+          delay(1000);
+          oldvalue = value; 
+        }
+        else {
+          
+        }
       }
       else {
         Serial.print("Error code: ");
         Serial.println(httpResponseCode);
       }
+      
+      
       // Free resources
       http.end();
     }
