@@ -5,11 +5,11 @@
 
 Servo myservo;
 
-int pos = 0;
 int servoPin = 13;
 int oldvalue = 1;
 int value = 1;
 int led = 14;
+int initoldvalue = 0;
 
 const char* ssid = "SSID"; // The name of your wifi
 const char* password = "PASSWORD"; // Ypur wifi password
@@ -23,7 +23,7 @@ unsigned long lastTime = 0;
 // Timer set to 10 minutes (600000)
 //unsigned long timerDelay = 600000;
 // Set timer to 5 seconds (5000)
-unsigned long timerDelay = 5000;
+unsigned long timerDelay = 2000;
 
 void setup() {
   Serial.begin(115200); 
@@ -41,6 +41,7 @@ void setup() {
   Serial.println("Timer set to 5 seconds (timerDelay variable), it will take 5 seconds before publishing the first reading.");
   pinMode(led, OUTPUT);
   digitalWrite(led, LOW);
+  myservo.write(20);
   
 }
 
@@ -59,20 +60,23 @@ void loop() {
       
       // Send HTTP GET request
       int httpResponseCode = http.GET();
+      Serial.println(httpResponseCode);
       
       
-      
-      if (httpResponseCode>0) {
+      if (httpResponseCode == 200) {
         String payload = http.getString();
         int value = atoi(payload.c_str());
+        if (initoldvalue == 0){
+         oldvalue = value;
+         initoldvalue = 1;
+        }
         Serial.println(value);
         Serial.println(oldvalue);
         Serial.println();
-        if (oldvalue<value) {
-          myservo.write(60);
+        if (oldvalue != value) {
+          myservo.write(40);
           delay(1000);
-          myservo.write(150);
-          delay(1000);
+          myservo.write(20);
           oldvalue = value; 
         }
         else {
