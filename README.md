@@ -1,2 +1,3 @@
 # Remote door lock
 
+## DO NOT TOUCH THE MYTICAL VENDOR FOLDER!!
