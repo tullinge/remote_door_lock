@@ -6,12 +6,14 @@ require 'database/db_connection.php';
 $login_button = '';
 
 //This $_GET["code"] variable value received after user has login into their Google Account redirct to PHP script then this variable value has been received
-if(isset($_GET["code"])) {
+if(isset($_GET["code"]))
+{
     //It will Attempt to exchange a code for an valid authentication token.
     $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
 
     //This condition will check there is any error occur during geting authentication token. If there is no any error occur then it will execute if block of code/
-    if(!isset($token['error'])) {
+    if(!isset($token['error']))
+    {
         //Set the access token used for requests
         $google_client->setAccessToken($token['access_token']);
 
@@ -25,19 +27,20 @@ if(isset($_GET["code"])) {
         $data = $google_service->userinfo->get();
 
         //Below you can find Get profile data and store into $_SESSION variable
-        if(!empty($data['given_name'])) {
+        if(!empty($data['given_name']))
+        {
             $_SESSION['given_name'] = $data['given_name'];
         }
-
-        if(!empty($data['family_name'])) {
+        if(!empty($data['family_name']))
+        {
             $_SESSION['family_name'] = $data['family_name'];
         }
-
-        if(!empty($data['email'])) {
+        if(!empty($data['email']))
+        {
             $_SESSION['email'] = $data['email'];
         }
-
-        if(!empty($data['picture'])) {
+        if(!empty($data['picture']))
+        {
             $_SESSION['picture'] = $data['picture'];
         }
     }
@@ -67,21 +70,23 @@ if(!isset($_SESSION['access_token']))
             $sql = "SELECT `rank` FROM RDL_users WHERE `email` = ?";
             $stmt = mysqli_stmt_init($conn);
 
-            if (!mysqli_stmt_prepare($stmt, $sql)) {
+            if (!mysqli_stmt_prepare($stmt, $sql))
+            {
                 // Sends back user if thear is a problem with sql querys sent to database.
                 header('Location: ../index.php?err=sqlerr1');
-                exit();
-                    
+                exit();    
             }
-            else {
+            else
+            {
                 mysqli_stmt_bind_param($stmt, 's', strtolower($email));
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_bind_result($stmt, $rank);
-                if (mysqli_stmt_fetch($stmt)); {
+                if (mysqli_stmt_fetch($stmt));
+                {
                 }
             }
-                mysqli_stmt_close($stmt);
-                mysqli_close($conn);
+            mysqli_stmt_close($stmt);
+            mysqli_close($conn);
 
             if($login_button == '')
             {
@@ -96,8 +101,6 @@ if(!isset($_SESSION['access_token']))
                     echo '<form action="scripts/open-script.php" method="post">';
                     echo '<button type="submit" name="open-submit"><p>OPEN DOOR</p></button>';
                     echo '</form>';
-
-                
 
                     if($rank == '2' || $rank == '3' || $rank == '4')
                     {
@@ -120,7 +123,6 @@ if(!isset($_SESSION['access_token']))
                         {
                             echo 'Where to return list of users with "SELECT `given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < $rank"';
                         }
-                        
                     }
                 }
                 else
