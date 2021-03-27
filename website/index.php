@@ -116,6 +116,10 @@ if(!isset($_SESSION['access_token']))
                         }
                         echo '<button type="submit" name="user-submit">ADD USER</button>';
                         echo '</form>';
+                        if ($rank == '4')
+                        {
+                            echo 'Where to return list of users with "SELECT `given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < $rank"';
+                        }
                         
                     }
                 }
