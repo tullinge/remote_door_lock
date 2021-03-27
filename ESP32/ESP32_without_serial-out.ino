@@ -4,18 +4,17 @@
 #include <Stdlib.h>
 Servo myservo;
 // Declaration of setting varibels
+int servo = 1; // Use 1 for servo and 0 for relay
 
-int servo = 0; // Use 1 for servo and 0 for relay
+int output_pin = Enter pin num here; // Pinout for servo or relay
+int led_pin = Enter pin num here; // Pinout for LED
 
-int output_pin = 15; // Pinout for servo or relay
-int led_pin = 13; // Pinout for LED
+const char* ssid = "Enter info here"; // Your wifi name.
+const char* password = "Enter info here"; // Your wifi password.
 
-const char* ssid = "SSID"; // Your wifi name.
-const char* password = "PASSWORD"; // Your wifi password.
-
-String serverName = "http://url.com/"; // The URL of the API page for this ESP32.
-
-int delay_time = 1000; // You can change the time depending on how offen you whant it to update (its not every x ms it will update its ever (x ms + time to run))
+String serverName = "http://Enter URL here.com/api/Enter filename here.php"; // The URL of the API page for this ESP32.
+// Defult time for delay_timer is 500ms (0.5 second) and 1000ms for act_timer.
+int delay_timer = 500; // You can change the time depending on how offen you whant it to update (its not every x ms it will update its ever (x ms + time to run))
 int act_timer = 1000; // Time from start of acton to end. For example time the relay is open, or the time the servo has to move and press a button.
 
 // Declaration of varibels (NOT TO BE CHANGED)
@@ -24,20 +23,17 @@ int oldvalue = 0;
 int init_oldvalue = 0;
 
 void setup() {
-  Serial.begin(115200);
   WiFi.begin(ssid, password);
-  Serial.println("Connecting");
   while(WiFi.status() != WL_CONNECTED) {
-    delay(500);
+    delay(250);
   }
-  Serial.println("Connected to WiFi network with IP Address: "+WiFi.localIP()+"\n");
  
   pinMode(led_pin, OUTPUT);
   digitalWrite(led_pin, LOW);
   if (servo == 1)
   {
-    myservo.attach(12);
-    myservo.write(20);
+    myservo.attach(output_pin);
+    myservo.write(25);
   }
   else
   {
@@ -45,24 +41,19 @@ void setup() {
     digitalWrite(output_pin, LOW);
   }
 }
-
 void loop()
 {
-  delay(delay_time);
+  delay(delay_timer);
   digitalWrite(led_pin, LOW);
-  digitalWrite(output_pin, LOW);
-  //Check WiFi connection status
   
-  if(WiFi.status()== WL_CONNECTED)
+  if(WiFi.status()== WL_CONNECTED)//Check WiFi connection status
   {
     digitalWrite(led_pin, HIGH);
     HTTPClient http;
     String serverPath = serverName;
     http.begin(serverPath.c_str());
-    
     // Send HTTP GET request
     int httpResponseCode = http.GET();
-    Serial.println(httpResponseCode);
     
     if (httpResponseCode == 200)
     {
@@ -74,32 +65,23 @@ void loop()
         oldvalue = value;
         init_oldvalue = 1;
       }
-      Serial.println("value:"+value+"\n oldvalue:"+oldvalue);      
       if (value > oldvalue)
       {
         if (servo == 1)
         {
-          myservo.write(40);
+          myservo.write(5);
           delay(act_timer);
-          myservo.write(20);
+          myservo.write(25);
         }
         else
         {
-          digitalWrite(relaypin, HIGH);
+          digitalWrite(output_pin, HIGH);
           delay(act_timer);
-          digitalWrite(relaypin, LOW);
+          digitalWrite(output_pin, LOW);
         }
       oldvalue = value; 
       }
     }
-    else
-    {
-      Serial.println("Error code: "+httpResponseCode);
-    }
     http.end();
-  }
-  else
-  {
-    Serial.println("WiFi Disconnected");
   }
 }
