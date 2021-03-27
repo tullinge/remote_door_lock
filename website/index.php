@@ -85,7 +85,7 @@ if(!isset($_SESSION['access_token']))
 
             if($login_button == '')
             {
-                if($rank == '1' || $rank == '2' || $rank == '3') {
+                if($rank == '1' || $rank == '2' || $rank == '3' || $rank == '4') {
                     echo '<img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />';
                     echo '<p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>';
 
@@ -99,13 +99,13 @@ if(!isset($_SESSION['access_token']))
 
                 
 
-                    if($rank == '2' || $rank == '3')
+                    if($rank == '2' || $rank == '3' || $rank == '4')
                     {
                         echo '<form action="scripts/user-script.php" method="post">';
                         echo '<input type="text" placeholder="given_name" name="given_name">';
                         echo '<input type="text" placeholder="family_name" name="family_name">';
                         echo '<input type="text" placeholder="email" name="email">';
-                        if($rank == '3')
+                        if($rank == '3' || $rank == '4')
                         {
                             echo '<input type="radio" id="user" value="1" name="rank">';
                             echo '<label for="user">User</label>';
