@@ -5,7 +5,7 @@ require '../index.php';
 
 require '../database/db_connection.php';
 
-// Checks i f person got sent to the script file thrue the open button
+// Checks if person got sent to the script file thru the open button in the index file.
 if (isset($_POST['open-submit']))
 {
     if (empty($given_name) || empty($family_name) || empty($email))

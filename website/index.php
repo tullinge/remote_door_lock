@@ -1,32 +1,34 @@
 <?php
-//Include Configuration File
+//Include configuration file.
 include('config.php');
+
+// Require Databes file for database connecton.
 require 'database/db_connection.php';
 
 $login_button = '';
 
-//This $_GET["code"] variable value received after user has login into their Google Account redirct to PHP script then this variable value has been received
+// This $_GET["code"] variable value received after user has login into their Google Account redirct to PHP script then this variable value has been received
 if(isset($_GET["code"]))
 {
-    //It will Attempt to exchange a code for an valid authentication token.
+    // It will Attempt to exchange a code for an valid authentication token.
     $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
 
     //This condition will check there is any error occur during geting authentication token. If there is no any error occur then it will execute if block of code/
     if(!isset($token['error']))
     {
-        //Set the access token used for requests
+        // Set the access token used for requests
         $google_client->setAccessToken($token['access_token']);
 
-        //Store "access_token" value in $_SESSION variable for future use.
+        // Store "access_token" value in $_SESSION variable for future use.
         $_SESSION['access_token'] = $token['access_token'];
 
-        //Create Object of Google Service OAuth 2 class
+        // Create Object of Google Service OAuth 2 class.
         $google_service = new Google_Service_Oauth2($google_client);
 
-        //Get user profile data from google
+        // Get user profile data from google.
         $data = $google_service->userinfo->get();
 
-        //Below you can find Get profile data and store into $_SESSION variable
+        // Below you can find Get profile data and store into $_SESSION variable.
         if(!empty($data['given_name']))
         {
             $_SESSION['given_name'] = $data['given_name'];
@@ -49,7 +51,7 @@ if(isset($_GET["code"]))
 //This is for check user has login into system by using Google account, if User not login into system then it will execute if block of code and make code for display Login link for Login using Google account.
 if(!isset($_SESSION['access_token']))
 {
- //Create a URL to obtain user authorization
+ //Create a URL to obtain user authorization.
  $login_button = '<a href="'.$google_client->createAuthUrl().'"><p>Login</p></a>';
 }
 
@@ -87,27 +89,33 @@ if(!isset($_SESSION['access_token']))
             }
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
-
+            
             if($login_button == '')
             {
+                
                 if($rank == '1' || $rank == '2' || $rank == '3' || $rank == '4') {
                     echo '<img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />';
                     echo '<p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>';
 
+                    // A logout button.
                     echo '<form action="scripts/logout-script.php" method="post">';
                     echo '<button type="submit" name="logout-submit"><p>LOGOUT</p></button>';
                     echo '</form>';
 
+                    // A button that sends a request to open the door.
                     echo '<form action="scripts/open-script.php" method="post">';
                     echo '<button type="submit" name="open-submit"><p>OPEN DOOR</p></button>';
                     echo '</form>';
 
+                    // Adds a user add form for moderator, admins and fallbackadmin.
                     if($rank == '2' || $rank == '3' || $rank == '4')
                     {
                         echo '<form action="scripts/user-script.php" method="post">';
                         echo '<input type="text" placeholder="given_name" name="given_name">';
                         echo '<input type="text" placeholder="family_name" name="family_name">';
                         echo '<input type="text" placeholder="email" name="email">';
+                        
+                        // Adds the option for admins adn fallbackadmins too select what rank a new user is supose to have.
                         if($rank == '3' || $rank == '4')
                         {
                             echo '<input type="radio" id="user" value="1" name="rank">';
@@ -117,26 +125,31 @@ if(!isset($_SESSION['access_token']))
                             echo '<input type="radio" id="admin" value="3" name="rank">';
                             echo '<label for="admin">Admin</label>';
                         }
+
+                        // A button to add user email, first and lastname to the database
                         echo '<button type="submit" name="user-submit">ADD USER</button>';
                         echo '</form>';
-                        if ($rank == '4')
-                        {
-                            echo 'Where to return list of users with "SELECT `given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < $rank"';
-                        }
+                    }
+
+                    // Shows admins and fallbackadmins a list of all users bellow thear rank.
+                    if ($rank == '4')
+                    {
+                        echo 'Where to return list of users with "SELECT `given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < $rank"';
                     }
                 }
-                else
+
+                // Logs a person out if they dont have a rank/do not exist in the database.
+                else 
                 {   
                     $google_client->revokeToken($_SESSION['access_token']);
                     session_destroy();
                     header('Location: ../index.php?err=no-access');
                     exit();
                 }
-                    
             }
             else
             {
-                echo '<div">'.$login_button . '</div>';
+                echo '<div>'.$login_button . '</div>';
             }
         ?>
     </body>

@@ -1,4 +1,5 @@
 <?php
+// creates a connecton to databes called $conn.
 require 'db_info.php';
 $conn = mysqli_connect(
     $DATABASE_HOST,
