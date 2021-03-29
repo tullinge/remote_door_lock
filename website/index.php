@@ -132,9 +132,13 @@ if(!isset($_SESSION['access_token']))
                     }
 
                     // Shows admins and fallbackadmins a list of all users bellow thear rank.
-                    if ($rank == '4')
+                    if ($rank == '3'|| $rank == '4')
                     {
                         echo 'Where to return list of users with "SELECT `given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < $rank"';
+                        // A button that sends a request to open the door.
+                        echo '<form action="test.php" method="post">';//scripts/list_users-script.php
+                        echo '<button type="submit" name="list_users-submit"><p>USER LIST</p></button>';
+                        echo '</form>';
                     }
                 }
 
