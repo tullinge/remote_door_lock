@@ -1,7 +1,12 @@
-db_info.php
+# Standard ignores
 .vscode
 .txt
+test.php
+
+# website private info
 config.php
 info.json
-test.php
+db_info.php
+
+# temporary
 list_users_function.php
