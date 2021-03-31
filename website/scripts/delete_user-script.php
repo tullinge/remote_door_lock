@@ -10,7 +10,7 @@ if (isset($_POST['delete_user-submit']))
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql))
     {
-        header('Location: ../test.php?err=sqlerr1');
+        header('Location: ../user_list.php?err=sqlerr1');
         exit();
     }
     else
@@ -20,9 +20,9 @@ if (isset($_POST['delete_user-submit']))
         mysqli_stmt_bind_result($stmt, $deleted_user_rank);
         while (mysqli_stmt_fetch($stmt));
 
-        if (!$deleted_user_rank < $_SESSION['rank'])
+        if ($deleted_user_rank >= $_SESSION['rank'])
         {
-            header('Location: ../test.php?err=not-authorized'); 
+            header('Location: ../user_list.php?err=not-authorized'); 
             exit();
         }
 
@@ -32,7 +32,7 @@ if (isset($_POST['delete_user-submit']))
 
             if (!mysqli_stmt_prepare($stmt, $sql))
             {
-                header('Location: ../test.php?err=sqlerr2');
+                header('Location: ../user_list.php?err=sqlerr2');
                 exit();
             }
             else
@@ -40,7 +40,7 @@ if (isset($_POST['delete_user-submit']))
                 mysqli_stmt_bind_param($stmt, 'i', $_POST['id']);
                 mysqli_stmt_execute($stmt);
                 /*mysqli_stmt_store_result($stmt);*/
-                header('Location: ../test.php?sus=user-deleted');
+                header('Location: ../user_list.php?sus=user-deleted');
                 exit();
             }
         }
@@ -50,6 +50,6 @@ if (isset($_POST['delete_user-submit']))
 }
 else
 {
-    header('Location: ../test.php?err=Dont-even-try');
+    header('Location: ../user_list.php?err=Dont-even-try');
     exit();
 }

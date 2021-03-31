@@ -131,7 +131,7 @@ if(!isset($_SESSION['access_token']))
                     if ($_SESSION['rank'] == '3'|| $_SESSION['rank'] == '4')
                     {
                         // A button that sends a request to open the door.
-                        echo '<form action="test.php" method="post">';//scripts/list_users-script.php
+                        echo '<form action="user_list.php" method="post">';//scripts/list_users-script.php
                         echo '<button type="submit" name="list_users-submit"><p>USER LIST</p></button>';
                         echo '</form>';
                     }
