@@ -6,7 +6,8 @@ CREATE TABLE RDL_users (
 	`rank` int(2) NOT NULL DEFAULT 1,
 	`added_by` VARCHAR(150) NOT NULL,
 	`time_added` TIMESTAMP NOT NULL DEFAULT NOW(),
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+	ADD UNIQUE KEY `email` (`email`)
 );
 CREATE TABLE RDL_log (
     `id` INT NOT NULL AUTO_INCREMENT,
