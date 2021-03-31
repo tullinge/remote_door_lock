@@ -27,38 +27,62 @@ if (isset($_POST['user-submit']))
         }
         else
         {
-            $sql = "INSERT INTO RDL_users (given_name, family_name, email, `rank`, added_by) VALUES (?, ?, ?, ?, ?)";
+            $sql = "SELECT * FROM RDL_users WHERE email=?;";
             $stmt = mysqli_stmt_init($conn);
-
             if (!mysqli_stmt_prepare($stmt, $sql))
             {
-                // Sends back user if thear is a problem with sql querys sent to database.
                 header('Location: ../index.php?err=sqlerr1');
-               exit();
+                exit();
             }
             else
             {
-                mysqli_stmt_bind_param($stmt, 'sssis', strtolower($_POST['given_name']), strtolower($_POST['family_name']), strtolower($_POST['email']), $_POST['rank'], strtolower($_SESSION['email']));
+                mysqli_stmt_bind_param($stmt, 's', strtolower($_SESSION['email']));
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_store_result($stmt);
-                // Sends back user if it succeeds to send data to database.
-                if ($_POST['rank'] == 1)
+                $resultcheck = mysqli_stmt_num_rows($stmt);
+
+                if ($resultcheck > 0)
                 {
-                    header('Location: ../index.php?sus=added-user');
+                    header('Location: ../index.php?err=already-exist'); 
+                    exit();
                 }
-                elseif ($_POST['rank'] == 2)
-                {
-                    header('Location: ../index.php?sus=added-moderator');
-                }
-                elseif ($_POST['rank'] == 3)
-                {
-                    header('Location: ../index.php?sus=added-admin');
-                }
+
                 else
                 {
-                    header('Location: ../index.php?sus=added-user');
+                    $sql = "INSERT INTO RDL_users (given_name, family_name, email, `rank`, added_by) VALUES (?, ?, ?, ?, ?)";
+                    $stmt = mysqli_stmt_init($conn);
+
+                    if (!mysqli_stmt_prepare($stmt, $sql))
+                    {
+                        header('Location: ../index.php?err=sqlerr2');
+                        exit();
+                    }
+                    else
+                    {
+
+                        mysqli_stmt_bind_param($stmt, 'sssis', strtolower($_POST['given_name']), strtolower($_POST['family_name']), strtolower($_POST['email']), $_POST['rank'], strtolower($_SESSION['email']));
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_store_result($stmt);
+                        // Sends back user if it succeeds to send data to database.
+                        if ($_POST['rank'] == 1)
+                        {
+                            header('Location: ../index.php?sus=added-user');
+                        }
+                        elseif ($_POST['rank'] == 2)
+                        {
+                            header('Location: ../index.php?sus=added-moderator');
+                        }
+                        elseif ($_POST['rank'] == 3)
+                        {
+                            header('Location: ../index.php?sus=added-admin');
+                        }
+                        else
+                        {
+                            header('Location: ../index.php?sus=added-user');
+                        }
+                        exit();
+                    }
                 }
-                exit();
             }
         }
         mysqli_stmt_close($stmt);
