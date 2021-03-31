@@ -3,7 +3,7 @@ include('../config.php');
 require '../database/db_connection.php';
 
 // Checks if person got sent to the script file thru the open button in the index file.
-if (isset($_POST['open-submit']))
+if (isset($_POST['request-submit']))
 {
     if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
@@ -29,7 +29,7 @@ if (isset($_POST['open-submit']))
             mysqli_stmt_execute($stmt);
             mysqli_stmt_store_result($stmt);
 
-            header('Location: ../index.php?sus=door-opened');
+            header('Location: ../index.php?sus=request-sent');
             exit();
         }
     }

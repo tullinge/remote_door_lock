@@ -99,8 +99,8 @@ if(!isset($_SESSION['access_token']))
                     echo '</form>';
 
                     // A button that sends a request to open the door.
-                    echo '<form action="scripts/open-script.php" method="post">';
-                    echo '<button type="submit" name="open-submit"><p>OPEN DOOR</p></button>';
+                    echo '<form action="scripts/request-script.php" method="post">';
+                    echo '<button type="submit" name="request-submit"><p>OPEN DOOR</p></button>';
                     echo '</form>';
 
                     // Adds a user add form for moderator, admins and fallbackadmin.
