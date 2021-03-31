@@ -7,7 +7,8 @@ if (isset($_POST['open-submit']))
 {
     if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
-        //Destroy entire session data.s
+        //Sends back user if they artent properly loged in and loges them out.
+        $google_client->revokeToken($_SESSION['access_token']);
         session_destroy();
         header('Location: ../index.php?err=not-loged-in-properly');
         exit();
