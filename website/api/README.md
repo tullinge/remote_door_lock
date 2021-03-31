@@ -11,6 +11,7 @@ To add a second button for a second remotecontrolled servo/relay, you also have 
 
 For exemple:
 
-``$sql = "SELECT * FROM "RDL_log"";``
-
-``$sql = "SELECT * FROM "RLS_log"";``
+```
+$sql = "SELECT * FROM "RDL_log"";
+$sql = "SELECT * FROM "RLS_log"";
+```

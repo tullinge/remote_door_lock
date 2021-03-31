@@ -1,27 +1,28 @@
 # Remote door lock
 
 ## Requirements
-**All Dependecys are included in the reposertory**
-* Arduino libarys
+**All Dependecies are included in the repository**
+* Arduino libraries
   * ArduinoHttpClient
   * ESP32_Arduino_Servo_Libary
   * HTTPClient
   * WiFi
   * WiFiClientSecure
-  * Website libarys
+  * Website libraries
   * Vendor
 
-All arduino libarys are in the [```ESP32/lib```](ESP32/lib) folder, while all the vendor folders are under [```website/vendor```](website/vendor).
+All arduino libraries are under [```ESP32/lib```](ESP32/lib), while all the vendor folders are under [```website/vendor```](website/vendor).
 
 ## Parts (physical)
 **If** you use a **servo** check so it's strong enough.
 
-**If** you use a **relay** check so it can handel the current.
+**If** you use a **relay** check so it can handle the current.
 ### Required
 * ESP32
 * Servo/Relay
-### Not required
+### Not Required
 * LED
+
 ## Instructons (deployment)
 
 ### Google API Credential
@@ -36,15 +37,15 @@ To set up the goggle API you can follow these instruction [```google instruction
 * Click **SAVE AND CONTINUE** til you reach the end and then click back to dashboard.
 * Navigate to the Credential page, click **CREATE CREDENTIALS>OAuth client ID**.
 * Select **Web application** and name your **OAuth 2.0 client**.
-* Add the *primary* URL under **Authorized JavaScript origins**.
-  * https//:**URL**/
-* Add the *redirect* URL under **Authorized redirect URIs**.
-  * https//:**URL**/index
+* Add the *primary* URI under **Authorized JavaScript origins**.
+  * https://**URL**/
+* Add the *redirect* URI under **Authorized redirect URIs**.
+  * https://**URL**/index
 * To view your **Client ID** and **Client secret** go to the projects Credential page and click on your apps name under **OAuth 2.0 Client IDs**
   
 
 ### Server
-For this website you will nead a server that will host a server with PHP 8.0 support atleast, HTTPS is also recomended for that you need a SSL license
+For this website you will need a server that can host a PHP 8.0 website, HTTPS is also recommended for that you need a SSL license
 
 We used a Unix server runing with an SSL license and FileZilla(FTP-client) to upload the files to the server.
 * PHP 8.0
@@ -52,18 +53,18 @@ We used a Unix server runing with an SSL license and FileZilla(FTP-client) to up
 * FTP access
   
 ### Database
-For this website you will nead a mysql database.
+For this website you will need a mysql database.
 
 We used a MySQL/MariaDB database.
 
 ### Website
-For the website to work you have to fillout the nesesary varebels in the desgnated files(more detail in website [```README```](website/README.md)).
+For the website to work you have to fill out the necessary variables in the designated files(more detail in website [```README```](website/README.md)).
 
 ### Arduino
 
-## User storys
+## User stories
 
-A higher rank can do anything the lower ranks can do and have access to more features (the ones mentiond under that ranks subheading).
+A higher rank can do anything the lower ranks can do and have access to more features (the ones mentioned under that ranks subheading).
 
 ### User
 * A **user** will be able to **login with my goggle login**.
