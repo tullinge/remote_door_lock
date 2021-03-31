@@ -1,14 +1,11 @@
 <?php
 include('../config.php');
-
-require '../index.php';
-
 require '../database/db_connection.php';
 
 // Checks if person got sent to the script file thru the open button in the index file.
 if (isset($_POST['open-submit']))
 {
-    if (empty($given_name) || empty($family_name) || empty($email))
+    if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
         //Destroy entire session data.s
         session_destroy();
@@ -27,7 +24,7 @@ if (isset($_POST['open-submit']))
         }
         else
         {
-            mysqli_stmt_bind_param($stmt, 'sss', $given_name, $family_name, $email);
+            mysqli_stmt_bind_param($stmt, 'sss', strtolower($_SESSION['given_name']), strtolower($_SESSION['family_name']), strtolower($_SESSION['email']));
             mysqli_stmt_execute($stmt);
             mysqli_stmt_store_result($stmt);
 

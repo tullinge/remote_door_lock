@@ -65,10 +65,6 @@ if(!isset($_SESSION['access_token']))
     </head>
     <body>
         <?php
-            $given_name  = strtolower($_SESSION['given_name']);
-            $family_name = strtolower($_SESSION['family_name']);
-            $email = strtolower($_SESSION['email']);
-
             $sql = "SELECT `rank` FROM RDL_users WHERE `email` = ?";
             $stmt = mysqli_stmt_init($conn);
 
@@ -80,20 +76,20 @@ if(!isset($_SESSION['access_token']))
             }
             else
             {
-                mysqli_stmt_bind_param($stmt, 's', strtolower($email));
+                mysqli_stmt_bind_param($stmt, 's', strtolower($_SESSION['email']));
                 mysqli_stmt_execute($stmt);
-                mysqli_stmt_bind_result($stmt, $rank);
+                mysqli_stmt_bind_result($stmt, $_SESSION['rank']);
                 if (mysqli_stmt_fetch($stmt));
                 {
                 }
             }
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
-            
+
             if($login_button == '')
             {
                 
-                if($rank == '1' || $rank == '2' || $rank == '3' || $rank == '4') {
+                if($_SESSION['rank'] == '1' || $_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4') {
                     echo '<img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />';
                     echo '<p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>';
 
@@ -108,15 +104,15 @@ if(!isset($_SESSION['access_token']))
                     echo '</form>';
 
                     // Adds a user add form for moderator, admins and fallbackadmin.
-                    if($rank == '2' || $rank == '3' || $rank == '4')
+                    if($_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
                     {
-                        echo '<form action="scripts/user-script.php" method="post">';
+                        echo '<form action="scripts/add_user-script.php" method="post">';
                         echo '<input type="text" placeholder="given_name" name="given_name">';
                         echo '<input type="text" placeholder="family_name" name="family_name">';
                         echo '<input type="text" placeholder="email" name="email">';
                         
                         // Adds the option for admins adn fallbackadmins too select what rank a new user is supose to have.
-                        if($rank == '3' || $rank == '4')
+                        if($_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
                         {
                             echo '<input type="radio" id="user" value="1" name="rank">';
                             echo '<label for="user">User</label>';
@@ -132,9 +128,8 @@ if(!isset($_SESSION['access_token']))
                     }
 
                     // Shows admins and fallbackadmins a list of all users bellow thear rank.
-                    if ($rank == '3'|| $rank == '4')
+                    if ($_SESSION['rank'] == '3'|| $_SESSION['rank'] == '4')
                     {
-                        echo 'Where to return list of users with "SELECT `given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < $rank"';
                         // A button that sends a request to open the door.
                         echo '<form action="test.php" method="post">';//scripts/list_users-script.php
                         echo '<button type="submit" name="list_users-submit"><p>USER LIST</p></button>';
