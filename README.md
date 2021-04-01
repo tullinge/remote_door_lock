@@ -8,7 +8,7 @@
   * HTTPClient
   * WiFi
   * WiFiClientSecure
-  * Website libraries
+* Website libraries
   * Vendor
 
 All arduino libraries are under [```ESP32/lib```](ESP32/lib), while all the vendor folders are under [```website/vendor```](website/vendor).
