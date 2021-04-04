@@ -1,6 +1,6 @@
 <?php
 //Include configuration file.
-include('config.php');
+require 'config.php';
 
 // Require Databes file for database connecton.
 require 'database/db_connection.php';
@@ -65,6 +65,8 @@ if(!isset($_SESSION['access_token']))
     </head>
     <body>
         <?php
+            include 'website_structure/header.php';
+
             $sql = "SELECT `rank` FROM RDL_users WHERE `email` = ?";
             $stmt = mysqli_stmt_init($conn);
 
@@ -148,8 +150,11 @@ if(!isset($_SESSION['access_token']))
             }
             else
             {
-                echo '<div>'.$login_button . '</div>';
+                echo '<div>'.$login_button . '</div*>';
             }
+
+            include 'website_structure/foo
+            ter.php';
         ?>
     </body>
 </html>
