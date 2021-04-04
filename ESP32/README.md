@@ -15,7 +15,7 @@ C:\Users\"Your Name"\Documents\Arduino\Libraries
 ```
 
 ### Schematics
-<img src="RELAY_OR_SERVO_SCHEMATICS.jpg" height="400">
+<img src="ESP32_schematic.jpg" height="400">
 
 ## Setup 
 ### Servo or Relay
