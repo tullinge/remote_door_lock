@@ -9,6 +9,9 @@ sus = added-user
 ## Add user
 [```This script```](add_user-script.php) gets a post request fom the index file and adds the user if the information is not empty and make sure there are no duplicates.
 
+## Error checking
+[```This script```](error_checking-script.php) gets the error message from the URL and echos it back to the user.
+
 ## Delete user
 [```This script```](delete_user-script.php) gets the id of a user you want to delete when you press the **REMOVE USER** button, then it checks the database to see if you have a higher rank then the user you are trying to remove, if you have a higher rank it will send a request to the database to remove that user.
 
