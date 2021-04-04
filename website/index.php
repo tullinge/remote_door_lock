@@ -66,6 +66,7 @@ if(!isset($_SESSION['access_token']))
     <body>
         <?php
             include 'website_structure/header.php';
+            require 'scripts/error_checking-script.php';
 
             $sql = "SELECT `rank` FROM RDL_users WHERE `email` = ?";
             $stmt = mysqli_stmt_init($conn);
@@ -90,7 +91,6 @@ if(!isset($_SESSION['access_token']))
 
             if($login_button == '')
             {
-                
                 if($_SESSION['rank'] == '1' || $_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4') {
                     echo '<img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />';
                     echo '<p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>';
@@ -153,8 +153,7 @@ if(!isset($_SESSION['access_token']))
                 echo '<div>'.$login_button . '</div*>';
             }
 
-            include 'website_structure/foo
-            ter.php';
+            include 'website_structure/footer.php';
         ?>
     </body>
 </html>
