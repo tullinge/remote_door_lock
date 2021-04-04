@@ -24,9 +24,9 @@
             mysqli_close($conn);
             //Prepers and lists result
             foreach ($users as $value) {
-                echo '<br>'.$value['given_name'].' '.$value['family_name'];
-                echo '<br>'.$value['email'].'<br>';
                 echo '
+                    <br>'.$value['given_name'].' '.$value['family_name'].'
+                    <br>'.$value['email'].'<br>
                     <form action="scripts/delete_user-script.php" method="post">
                         <input type="hidden" name="id" value="'.$value['id'].'">
                         <button type="submit" name="delete_user-submit"><p>REMOVE USER</p></button>

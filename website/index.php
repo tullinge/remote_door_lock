@@ -75,7 +75,7 @@ if(!isset($_SESSION['access_token']))
             {
                 // Sends back user if thear is a problem with sql querys sent to database.
                 header('Location: ../index.php?err=sqlerr1');
-                exit();    
+                exit();
             }
             else
             {
@@ -83,59 +83,72 @@ if(!isset($_SESSION['access_token']))
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_bind_result($stmt, $_SESSION['rank']);
                 if (mysqli_stmt_fetch($stmt));
-                {
-                }
             }
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
 
             if($login_button == '')
             {
-                if($_SESSION['rank'] == '1' || $_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4') {
-                    echo '<img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />';
-                    echo '<p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>';
+                if($_SESSION['rank'] == '1' || $_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
+                {
+                    echo '
+                        <img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />
+                        <p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>
+                    ';
 
                     // A logout button.
-                    echo '<form action="scripts/logout-script.php" method="post">';
-                    echo '<button type="submit" name="logout-submit"><p>LOGOUT</p></button>';
-                    echo '</form>';
+                    echo '
+                        <form action="scripts/logout-script.php" method="post">
+                            <button type="submit" name="logout-submit"><p>LOGOUT</p></button>
+                        </form>
+                    ';
 
                     // A button that sends a request to open the door.
-                    echo '<form action="scripts/request-script.php" method="post">';
-                    echo '<button type="submit" name="request-submit"><p>OPEN DOOR</p></button>';
-                    echo '</form>';
+                    echo '
+                        <form action="scripts/request-script.php" method="post">
+                            <button type="submit" name="request-submit"><p>OPEN DOOR</p></button>
+                        </form>
+                    ';
 
                     // Adds a user add form for moderator, admins and fallbackadmin.
                     if($_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
                     {
-                        echo '<form action="scripts/add_user-script.php" method="post">';
-                        echo '<input type="text" placeholder="given_name" name="given_name">';
-                        echo '<input type="text" placeholder="family_name" name="family_name">';
-                        echo '<input type="text" placeholder="email" name="email">';
+                        echo '
+                            <form action="scripts/add_user-script.php" method="post">
+                                <input type="text" placeholder="given_name" name="given_name">
+                                <input type="text" placeholder="family_name" name="family_name">
+                                <input type="text" placeholder="email" name="email">
+                        ';
                         
                         // Adds the option for admins adn fallbackadmins too select what rank a new user is supose to have.
                         if($_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
                         {
-                            echo '<input type="radio" id="user" value="1" name="rank">';
-                            echo '<label for="user">User</label>';
-                            echo '<input type="radio" id="moderator" value="2" name="rank">';
-                            echo '<label for="moderator">Moderator</label>';
-                            echo '<input type="radio" id="admin" value="3" name="rank">';
-                            echo '<label for="admin">Admin</label>';
+                            echo '
+                                <input type="radio" id="user" value="1" name="rank">
+                                <label for="user">User</label>
+                                <input type="radio" id="moderator" value="2" name="rank">
+                                <label for="moderator">Moderator</label>
+                                <input type="radio" id="admin" value="3" name="rank">
+                                <label for="admin">Admin</label>
+                            ';
                         }
 
                         // A button to add user email, first and lastname to the database
-                        echo '<button type="submit" name="user-submit">ADD USER</button>';
-                        echo '</form>';
+                        echo '
+                                <button type="submit" name="user-submit">ADD USER</button>
+                            </form>
+                        ';
                     }
 
                     // Shows admins and fallbackadmins a list of all users bellow thear rank.
                     if ($_SESSION['rank'] == '3'|| $_SESSION['rank'] == '4')
                     {
                         // A button that sends a request to open the door.
-                        echo '<form action="user_list.php" method="post">';//scripts/list_users-script.php
-                        echo '<button type="submit" name="list_users-submit"><p>USER LIST</p></button>';
-                        echo '</form>';
+                        echo '
+                            <form action="user_list.php" method="post">
+                                <button type="submit" name="list_users-submit"><p>USER LIST</p></button>
+                            </form>
+                        ';
                     }
                 }
 
