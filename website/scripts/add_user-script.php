@@ -36,7 +36,7 @@ if (isset($_POST['user-submit']))
             }
             else
             {
-                mysqli_stmt_bind_param($stmt, 's', strtolower($_SESSION['email']));
+                mysqli_stmt_bind_param($stmt, 's', strtolower($_POST['email']));
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_store_result($stmt);
                 $resultcheck = mysqli_stmt_num_rows($stmt);
