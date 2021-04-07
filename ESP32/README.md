@@ -7,7 +7,7 @@
   * WiFi
   * WiFiClientSecure
 
-All ESP32 libraries are under [```ESP32/lib```](ESP32/lib).
+All ESP32 libraries are under [```lib```](lib).
 
 Make sure to put the libraries in the correct folder, they should be in:
 ```
