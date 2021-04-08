@@ -13,7 +13,7 @@
         {
             // defines the sql query and sends it.
             $users = [];
-            $sql = "SELECT `id`,`given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < ".$_SESSION['rank'].";";
+            $sql = "SELECT `id`,`given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < ".$_SESSION['rank']." ORDER BY `family_name` ASC, `given_name` ASC;";
             $result = mysqli_query($conn, $sql);
 
             // Fetches and saves the user info in an array to be printed from.
