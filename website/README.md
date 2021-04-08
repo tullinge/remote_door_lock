@@ -1,7 +1,7 @@
 # Website
 
 ## Setup
-To set up the page you have to fill out these three files with the corect information and then remove "**enter_info-**" from the begining of the file names.
+To set up the page you have to fill out these three files with the correct information and then remove "**enter_info-**" from the begining of the file names.
 * [```enter_info-db_info.php```](database/enter_info-db_info.php) (The filed responesebel for the connection to the database)
 * [```enter_info-info.json```](enter_info-info.json) 
 * [```enter_info-config.php```](enter_info-config.php) 

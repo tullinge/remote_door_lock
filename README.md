@@ -1,7 +1,7 @@
 # Remote door lock
 
 ## Requirements
-**All Dependecies are included in the repository**
+**All Dependencies are included in the repository**
 * Arduino libraries
   * ArduinoHttpClient
   * ESP32_Arduino_Servo_Libary
@@ -45,7 +45,7 @@ To set up the goggle API you can follow these instruction [```google instruction
   
 
 ### Server
-For this website you will need a server that can host a PHP 8.0 website, HTTPS is also recommended for that you need a SSL license
+For this website you will need a server that can host a PHP 8.0 website, HTTPS shouldn't be used since it wouldn't work with the ESP32
 
 We used a Unix server runing with an SSL license and FileZilla(FTP-client) to upload the files to the server.
 * PHP 8.0
