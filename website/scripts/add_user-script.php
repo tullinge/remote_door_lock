@@ -21,11 +21,13 @@ if (isset($_POST['user-submit']))
     }
     else
     {
+        //Sends back user if they artent properly loged in and loges them out.
         if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
         {
-            //Sends back user if they artent properly loged in and loges them out.
+            // loges them out
             $google_client->revokeToken($_SESSION['access_token']);
             session_destroy();
+            // sends them back
             header('Location: ../index.php?err=not-loged-in-properly');
             exit();
         }
@@ -52,7 +54,7 @@ if (isset($_POST['user-submit']))
                 mysqli_stmt_store_result($stmt);
                 $resultcheck = mysqli_stmt_num_rows($stmt);
 
-                // The line that checks if the email added is a duplicate.
+                // The if statment that checks if the email added is a duplicate.
                 if ($resultcheck > 0)
                 {
                     // Sends back error message that user already exist.

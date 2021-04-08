@@ -11,9 +11,12 @@
         // Checks if person got sent to the script file thru the open button in the index file.
         if ($_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
         {
+            // defines the sql query and sends it.
             $users = [];
             $sql = "SELECT `id`,`given_name`,`family_name`,`email` FROM RDL_users WHERE `rank` < ".$_SESSION['rank'].";";
             $result = mysqli_query($conn, $sql);
+
+            // Fetches and saves the user info in an array to be printed from.
             while ($array = mysqli_fetch_array($result))
             {
                 $user = [
@@ -25,7 +28,7 @@
                 array_push($users, $user);
             }
             mysqli_close($conn);
-            //Prepares and lists result
+            // Echos teh list of usersrs one user at a time.
             foreach ($users as $value) {
                 echo '
                     <br>'.$value['given_name'].' '.$value['family_name'].'
@@ -38,6 +41,7 @@
             }
 
         }
+        // Sends back error message if the user didn't use the button to access the script.
         else
         {
             header('Location: ../index.php?err=Dont-even-try');

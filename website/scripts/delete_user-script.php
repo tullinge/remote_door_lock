@@ -8,49 +8,75 @@ require '../database/db_connection.php';
 // Checks if person got sent to the script file thru the open button in the index file.
 if (isset($_POST['delete_user-submit']))
 {
-
-    $sql = 'SELECT `rank` FROM RDL_users WHERE id=?;';
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql))
+    //Sends back user if they artent properly loged in and loges them out.
+    if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
-        header('Location: ../user_list.php?err=sqlerr1');
+        // loges them out
+        $google_client->revokeToken($_SESSION['access_token']);
+        session_destroy();
+        // sends them back
+        header('Location: ../index.php?err=not-loged-in-properly');
         exit();
     }
     else
     {
-        mysqli_stmt_bind_param($stmt, 'i', $_POST['id']);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $deleted_user_rank);
-        while (mysqli_stmt_fetch($stmt));
+        // Defining sql query and initalizing a connectoin to the database.
+        $sql = 'SELECT `rank` FROM RDL_users WHERE id=?;';
+        $stmt = mysqli_stmt_init($conn);
 
-        if ($deleted_user_rank >= $_SESSION['rank'])
+        // Checking if their is a problem with the sql query.
+        if (!mysqli_stmt_prepare($stmt, $sql))
         {
-            header('Location: ../user_list.php?err=not-authorized'); 
+            // Sends back user if their is a problem with sql querys sent to database.
+            header('Location: ../user_list.php?err=sqlerr1');
             exit();
         }
 
-        else{
-            $sql = "DELETE FROM `RDL_users` WHERE `id` = ?;";
-            $stmt = mysqli_stmt_init($conn);
+        // Checks the rank of the user that is trying to remove someone.
+        else
+        {
+            // Inputs the id of the user into the query.
+            mysqli_stmt_bind_param($stmt, 'i', $_POST['id']);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $deleted_user_rank);
+            while (mysqli_stmt_fetch($stmt));
 
-            if (!mysqli_stmt_prepare($stmt, $sql))
+            // The if statment that checks so the user didn't cahngen the html and try to delete a higher ranking person
+            if ($deleted_user_rank >= $_SESSION['rank'])
             {
-                header('Location: ../user_list.php?err=sqlerr2');
+                header('Location: ../user_list.php?err=not-authorized'); 
                 exit();
             }
-            else
-            {
-                mysqli_stmt_bind_param($stmt, 'i', $_POST['id']);
-                mysqli_stmt_execute($stmt);
-                /*mysqli_stmt_store_result($stmt);*/
-                header('Location: ../user_list.php?sus=user-deleted');
-                exit();
+
+            // Inserts the new users variables into the database.
+            else{
+                $sql = "DELETE FROM `RDL_users` WHERE `id` = ?;";
+                $stmt = mysqli_stmt_init($conn);
+
+                // Checking if their is a problem with the sql query.
+                if (!mysqli_stmt_prepare($stmt, $sql))
+                {
+                    header('Location: ../user_list.php?err=sqlerr2');
+                    exit();
+                }
+
+                // removes the user.
+                else
+                {
+                    // Inserts the variables into the query.
+                    mysqli_stmt_bind_param($stmt, 'i', $_POST['id']);
+                    mysqli_stmt_execute($stmt);
+                    /*mysqli_stmt_store_result($stmt);*/
+                    header('Location: ../user_list.php?sus=user-deleted');
+                    exit();
+                }
             }
         }
     }
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 }
+// Sends back error message if the user didn't use the button to access the script.
 else
 {
     header('Location: ../user_list.php?err=Dont-even-try');
