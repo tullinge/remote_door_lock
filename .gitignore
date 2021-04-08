@@ -7,3 +7,6 @@ test.php
 config.php
 info.json
 db_info.php
+
+# esp32 config file
+esp32_config.json
