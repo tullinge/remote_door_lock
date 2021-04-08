@@ -1,34 +1,42 @@
 <?php
+//Include configuration file.
 include('../config.php');
+
+// Require database file for database connecton.
 require '../database/db_connection.php';
 
-// Checks if person got sent to the script file thru the open button in the index file.
+// Checks if person got sent to the script file through the open button in the index file.
 if (isset($_POST['request-submit']))
 {
     if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
-        //Sends back user if they artent properly loged in and loges them out.
+        //Sends back user if they aren't properly logged in and logs them out.
         $google_client->revokeToken($_SESSION['access_token']);
         session_destroy();
-        header('Location: ../index.php?err=not-loged-in-properly');
+        header('Location: ../index.php?err=not-logged-in-properly');
         exit();
     }
     else
     {
+        // Defining sql query and initalizing a connection to the database.
         $sql = "INSERT INTO RDL_log (given_name, family_name, email) VALUES (?, ?, ?)";
         $stmt = mysqli_stmt_init($conn);
 
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-
+        // Checking if their is a problem with the sql query.
+        if (!mysqli_stmt_prepare($stmt, $sql))
+        {
+            // Sends back user if their is a problem with sql querys sent to database.
             header('Location: ../index.php?err=sqlerr1');
             exit();
         }
+        // Inserts email, given_name and family_name.
         else
         {
+            // Inputs email, given_name and family_name as an argument into the sql query.
             mysqli_stmt_bind_param($stmt, 'sss', strtolower($_SESSION['given_name']), strtolower($_SESSION['family_name']), strtolower($_SESSION['email']));
             mysqli_stmt_execute($stmt);
             mysqli_stmt_store_result($stmt);
-
+            // Sends back success message.
             header('Location: ../index.php?sus=request-sent');
             exit();
         }
@@ -36,6 +44,7 @@ if (isset($_POST['request-submit']))
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 }
+// Sends back users who didn't use the button to access the script.
 else
 {
     header('Location: ../index.php?err=Dont-even-try');

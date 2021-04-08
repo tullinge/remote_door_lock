@@ -3,7 +3,10 @@
     </head>
     <body>
     <?php
+        //Include configuration file.
         include('config.php');
+
+        // Require database file for database connecton.
         require 'database/db_connection.php';
         // Checks if person got sent to the script file thru the open button in the index file.
         if ($_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
@@ -22,7 +25,7 @@
                 array_push($users, $user);
             }
             mysqli_close($conn);
-            //Prepers and lists result
+            //Prepares and lists result
             foreach ($users as $value) {
                 echo '
                     <br>'.$value['given_name'].' '.$value['family_name'].'

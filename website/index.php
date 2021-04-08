@@ -2,7 +2,7 @@
 //Include configuration file.
 require 'config.php';
 
-// Require Databes file for database connecton.
+// Require database file for database connecton.
 require 'database/db_connection.php';
 
 $login_button = '';
@@ -16,7 +16,7 @@ if(isset($_GET["code"]))
     //This condition will check there is any error occur during geting authentication token. If there is no any error occur then it will execute if block of code/
     if(!isset($token['error']))
     {
-        // Set the access token used for requests
+        // Set the access token used for requests.
         $google_client->setAccessToken($token['access_token']);
 
         // Store "access_token" value in $_SESSION variable for future use.
@@ -65,20 +65,28 @@ if(!isset($_SESSION['access_token']))
     </head>
     <body>
         <?php
+            // Importing standardized header.
             include 'website_structure/header.php';
+
+            // Checking for error scripts.
             require 'scripts/error_checking-script.php';
 
+            // Defining sql query and initalizing a connectoin to the database.
             $sql = "SELECT `rank` FROM RDL_users WHERE `email` = ?";
             $stmt = mysqli_stmt_init($conn);
 
+            // Checking if their is a problem with the sql query.
             if (!mysqli_stmt_prepare($stmt, $sql))
             {
-                // Sends back user if thear is a problem with sql querys sent to database.
+                // Sends back user if their is a problem with sql querys sent to database.
                 header('Location: ../index.php?err=sqlerr1');
                 exit();
             }
+
+            // Checks what rank the user have.
             else
             {
+                // Inputs the email as an argument to find rank.
                 mysqli_stmt_bind_param($stmt, 's', strtolower($_SESSION['email']));
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_bind_result($stmt, $_SESSION['rank']);
@@ -87,8 +95,10 @@ if(!isset($_SESSION['access_token']))
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
 
+            // Checking if the login button is pressed.
             if($login_button == '')
             {
+                // Checks so the user have an appropriate rank.
                 if($_SESSION['rank'] == '1' || $_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
                 {
                     echo '
@@ -133,14 +143,14 @@ if(!isset($_SESSION['access_token']))
                             ';
                         }
 
-                        // A button to add user email, first and lastname to the database
+                        // A button to add user email, first and lastname to the database.
                         echo '
                                 <button type="submit" name="user-submit">ADD USER</button>
                             </form>
                         ';
                     }
 
-                    // Shows admins and fallbackadmins a list of all users bellow thear rank.
+                    // Shows admins and fallbackadmins a list of all users bellow their rank.
                     if ($_SESSION['rank'] == '3'|| $_SESSION['rank'] == '4')
                     {
                         // A button that sends a request to open the door.
@@ -166,6 +176,7 @@ if(!isset($_SESSION['access_token']))
                 echo '<div>'.$login_button . '</div*>';
             }
 
+            // Importing standardized footer.
             include 'website_structure/footer.php';
         ?>
     </body>

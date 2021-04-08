@@ -1,9 +1,10 @@
 <?php
+// a file for error and success messages
     if (isset($_GET['err']))
     {
-        if ($_GET['err'] == "not-loged-in-properly")
+        if ($_GET['err'] == "not-logged-in-properly")
         {
-            echo '<p>You are not loged in properly</p>';
+            echo '<p>You are not logged in properly</p>';
         }
 
         else if ($_GET['err'] == "form-not-filled-out")

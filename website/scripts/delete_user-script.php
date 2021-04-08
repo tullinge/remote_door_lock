@@ -1,5 +1,8 @@
 <?php
+//Include configuration file.
 include('../config.php');
+
+// Require database file for database connecton.
 require '../database/db_connection.php';
 
 // Checks if person got sent to the script file thru the open button in the index file.

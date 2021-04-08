@@ -1,4 +1,5 @@
 <?php
+//Include configuration file.
 include('../config.php');
 
 //Reset OAuth access token
