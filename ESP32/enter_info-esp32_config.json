@@ -1,0 +1,10 @@
+{
+    "ssid":"enter_wifi_name",
+    "password":"enter_wifi_password",
+    "APIURL":"http://URL/API/sitename.php",
+    "servo":"0",
+    "output_pin":"enter_output_pin",
+    "debug_LED_pin":"enter_debug_LED_pin",
+    "delay_time":"enter_delay_time",
+    "act_time":"enter_act_time"
+}

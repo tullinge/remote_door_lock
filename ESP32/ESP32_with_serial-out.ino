@@ -2,20 +2,21 @@
 #include <HTTPClient.h>
 #include <Servo.h>
 #include <Stdlib.h>
+#include <esp32_config.h>
 Servo myservo;
 // Declaration of setting varibels
-int servo = 1; // Use 1 for servo and 0 for relay
+//int servo = 1; // Use 1 for servo and 0 for relay
 
-int output_pin = Enter_pin_num_here; // Pinout for servo or relay
-int led_pin = Enter_pin_num_here; // Pinout for LED
+//int output_pin = Enter_pin_num_here; // Pinout for servo or relay
+//int led_pin = Enter_pin_num_here; // Pinout for LED
 
-const char* ssid = "Enter_info_here"; // Your wifi name.
-const char* password = "Enter_info_here"; // Your wifi password.
+//const char* ssid = "Enter_info_here"; // Your wifi name.
+//const char* password = "Enter_info_here"; // Your wifi password.
 
-String serverName = "http://Enter_URL_here.com/api/Enter_filename_here.php"; // The URL of the API page for this ESP32.
+//String serverName = "http://Enter_URL_here.com/api/Enter_filename_here.php"; // The URL of the API page for this ESP32.
 // Defult time for delay_timer is 500ms (0.5 second) and 1000ms for act_timer.
-int delay_timer = 500; // You can change the time depending on how offen you whant it to update (its not every x ms it will update its ever (x ms + time to run))
-int act_timer = 1000; // Time from start of acton to end. For example time the relay is open, or the time the servo has to move and press a button.
+//int delay_timer = 500; // You can change the time depending on how offen you whant it to update (its not every x ms it will update its ever (x ms + time to run))
+//int act_timer = 1000; // Time from start of acton to end. For example time the relay is open, or the time the servo has to move and press a button.
 
 // Declaration of varibels (NOT TO BE CHANGED)
 int value = 1;
