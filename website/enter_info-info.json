@@ -3,5 +3,8 @@
     "auth_uri":"",
     "token_uri":"",
     "auth_provider_x509_cert_url":"",
-    "client_secret":"","javascript_origins":["http://localhost:8000", "http://localhost:8000/index.php",
-        "http://URL.com", "https://URL.com/index.php"]}}
+    "client_secret":"",
+    "javascript_origins":["http://localhost:8000", "http://localhost:8000/index.php",
+        "http://URL.com", "https://URL.com/index.php"]
+    }
+}
