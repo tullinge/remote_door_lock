@@ -68,7 +68,7 @@ For the Arduino to work you have to fill out the necessary variables in the desi
 A higher rank can do anything the lower ranks can do and have access to more features (the ones mentioned under that ranks subheading).
 
 ### User
-* A **user** will be able to **login with my goggle login**.
+* A **user** will be able to **login with my google login**.
 * A **logged in user** will be able to **logout**.
 * A **logged in user** will be able to **send request to database** which the ESP32 will react to.
 
