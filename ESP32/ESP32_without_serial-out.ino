@@ -1,7 +1,9 @@
+// These lines includes all the libaries needed
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <Servo.h>
 #include <Stdlib.h>
+
 Servo myservo;
 // Declaration of setting varibels
 int servo = 1; // Use 1 for servo and 0 for relay
@@ -22,21 +24,29 @@ int value = 1;
 int oldvalue = 0;
 int init_oldvalue = 0;
 
-void setup() {
+// This is the setup
+void setup() 
+{
+  // These lines of code connects to your wi-fi
   WiFi.begin(ssid, password);
   while(WiFi.status() != WL_CONNECTED) {
     delay(250);
   }
  
+  // These are for the debug led
   pinMode(led_pin, OUTPUT);
   digitalWrite(led_pin, LOW);
+  
+  // These lines of code checks if you are using a servo or relay
   if (servo == 1)
   {
+    // These lines are for the servo code
     myservo.attach(output_pin);
     myservo.write(25);
   }
   else
   {
+    // These lines are for the relay code
     pinMode(output_pin, OUTPUT);
     digitalWrite(output_pin, LOW);
   }
@@ -44,37 +54,51 @@ void setup() {
 void loop()
 {
   delay(delay_timer);
+  
+  // This line of code sets the led status to low
   digitalWrite(led_pin, LOW);
   
-  if(WiFi.status()== WL_CONNECTED)//Check WiFi connection status
+  //Check WiFi connection status
+  if(WiFi.status()== WL_CONNECTED)
   {
+    // This sets the led status to high
     digitalWrite(led_pin, HIGH);
+    
+    // These lines connects the ESP32 to your API
     HTTPClient http;
     String serverPath = serverName;
     http.begin(serverPath.c_str());
+    
     // Send HTTP GET request
     int httpResponseCode = http.GET();
     
+    // This line chcks if the http response code is OK
     if (httpResponseCode == 200)
     {
+      // These lines of code converts the string from the API to an int
       String payload = http.getString();
       int value = atoi(payload.c_str());
       
+      // These lines of code prevents boot up signals
       if (init_oldvalue == 0)
       {
         oldvalue = value;
         init_oldvalue = 1;
       }
+      
+       // These lines of code checks if value is greater then the old value and runs the code
       if (value > oldvalue)
       {
         if (servo == 1)
         {
+          // This is the code which makes the servo run
           myservo.write(5);
           delay(act_timer);
           myservo.write(25);
         }
         else
         {
+          // This is the code which makes the relay run
           digitalWrite(output_pin, HIGH);
           delay(act_timer);
           digitalWrite(output_pin, LOW);
@@ -82,6 +106,7 @@ void loop()
       oldvalue = value; 
       }
     }
+    // This line ends the connection to the API
     http.end();
   }
 }
