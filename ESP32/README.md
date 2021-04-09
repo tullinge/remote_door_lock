@@ -18,34 +18,43 @@ C:\Users\"Your Name"\Documents\Arduino\Libraries
 <img src="ESP32_schematic.jpg" height="400">
 
 ## Setup 
+
 ### Arduino IDE
- - To use an ESP32 with the Arduino IDE you have to install the ESP32 board. If you have not installed it alredy click [here.](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)
+ - To use an ESP32 with the Arduino IDE you have to install the ESP32 board. If you have not installed it already follow [this](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/) guide
+
+## Variables
+To run the ESP32 you need to fill out the necessary variables in the file [```ESP32_with_serial-out.ino```](ESP32_with_serial-out.ino) 
 
 ### Servo or Relay
- - If change servo to 0 for relay insted of servo
- ````
- int servo = 1;
+ The ESP32 file can switch between servo and relay. To make the switch you replace "value" with 0 for relay and 1 for servo:
+
+ ````cpp
+ int servo = value;
  ````
 ### Pin settings
- - Enter the pin number were your relay or servo is attached to output_pin, for example 13 
- - Enter the pin number were your led (if used) is attached to led_pin, for example 15 
- ````
+ To make the LED and servo or relay run they need to be connected to a digital output pin. When you have chosen a digital output pin for your LED, servo or relay you need to fill out these variables:
+
+ ````cpp
 int output_pin = Enter_pin_num_here; 
 int led_pin = Enter_pin_num_here;
  ````
+
 ### Wi-Fi settings
-- Enter your Wi-Fi name to ssid
-- Enter your Wi-Fi password to password
-````
+To run the ESP32 you need to be connected to a WIFI network. To connect to a network you need to fill out these variables:
+
+````cpp
 const char* ssid = "Enter_info_here";
 const char* password = "Enter_info_here";
 ````
+
 ### API settings
-- Enter your API insted of the exampel server name
+To make the ESP32 read of a site you need to
+enter your API instead of the example server name. You can change the URL variable under:
+
+````cpp
+String serverName = "http://Enter_URL_here/api/Enter_filename_here.php"; 
 ````
-String serverName = "http://Enter_URL_here.com/api/Enter_filename_here.php"; 
-````
-### Starting the script
- - Make sure to select the correct bord type 
+## Uploading the script
+ - Make sure to select the correct board type 
    - In our case it was the ESP32 PIKO KIT
  - Upload to your ESP32 device

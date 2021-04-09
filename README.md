@@ -61,7 +61,7 @@ We used a MySQL/MariaDB database.
 For the website to work you have to fill out the necessary variables in the designated files(more detail in website [```README```](website/README.md)).
 
 ### Arduino
-For the Arduino to work you have to fill out the necessary variables in the designated files(more detail in ESP32 [```README```](ESP32/README.md))..
+For the Arduino to work you have to fill out the necessary variables in the designated files(more detail in ESP32 [```README```](ESP32/README.md)).
 
 ## User stories
 
