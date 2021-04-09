@@ -18,6 +18,9 @@ C:\Users\"Your Name"\Documents\Arduino\Libraries
 <img src="ESP32_schematic.jpg" height="400">
 
 ## Setup 
+### Arduino IDE
+ - To use an ESP32 with the Arduino IDE you have to install the ESP32 board. If you have not installed it alredy click [here.](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)
+
 ### Servo or Relay
  - If change servo to 0 for relay insted of servo
  ````
