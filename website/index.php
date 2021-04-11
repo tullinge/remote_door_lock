@@ -120,14 +120,18 @@ if(!isset($_SESSION['access_token']))
                         // A logout button.
                         echo '
                             <form action="scripts/logout-script.php" method="post">
-                                <button type="submit" name="logout-submit"><p>LOGOUT</p></button>
+                                <button type="submit" name="logout-submit">
+                                    <p>LOGOUT</p>
+                                </button>
                             </form>
                         ';
 
                         // A button that sends a request to open the door.
                         echo '
                             <form action="scripts/request-script.php" method="post">
-                                <button type="submit" name="request-submit"><p>OPEN DOOR</p></button>
+                                <button type="submit" name="request-submit">
+                                    <p>OPEN DOOR</p>
+                                </button>
                             </form>
                         ';
 
