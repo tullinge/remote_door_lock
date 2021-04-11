@@ -11,11 +11,8 @@ if (isset($_POST['delete_user-submit']))
     //Sends back user if they artent properly logged in and logs them out.
     if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
-        // logs them out
-        $google_client->revokeToken($_SESSION['access_token']);
-        session_destroy();
-        // sends them back
-        header('Location: ../index.php?err=not-logged-in-properly');
+        require "scripts/logout-script.php";
+        header('Location: ../index.php?err=not-loged-in-properly');
         exit();
     }
     else
