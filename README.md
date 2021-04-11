@@ -84,3 +84,41 @@ A higher rank can do anything the lower ranks can do and have access to more fea
 
 ### Fallback Admin
 * A **logged in fallback admin** will be able to **remove registered admins** from accessing the system.
+
+
+## Second button
+A Second button to controll a second ESP32 can be added by duplecating some parts of the backend code.
+
+### Database
+To get the secoond eesp32 to work independently, you have to a second log tabel in the database (Don't forget to have diftent names on the diffrent logs tabels.)
+
+### Index
+To add a second botton you have to copy this part of the [```index```](website/index.php) file, add it in directly after. (Don't forget to change the request scripts name corespondengly.)
+```html
+<form action="scripts/request-2-script.php" method="post">
+  <button type="submit" name="request-submit">
+    <p>Turnon Light</p>
+  </button>
+</form>
+```
+
+### Request script
+Copy the request script and change the name corespondengly so it matches with the link in [```index```](website/index.php)
+
+you also heve to change the tabel on line 21 so it matches the right log tabel
+```php
+$sql = "INSERT INTO RDL_log (given_name, family_name, email) VALUES (?, ?, ?)";
+```
+to something like
+```php
+$sql = "INSERT INTO RDL_log_2 (given_name, family_name, email) VALUES (?, ?, ?)";
+```
+
+### API
+For the api page you have to make a copy and change the taqbel to get the data from by changing line 4.
+```php
+$sql = "SELECT * FROM RDL_log";
+```
+
+### ESP32
+On the ESP32 side the only thing you have to change from the first deplayment is the URL ending.
