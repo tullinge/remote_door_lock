@@ -1,5 +1,6 @@
 <?php
-//Include configuration file.
+
+// Require configuration file.
 require 'config.php';
 
 // Require database file for database connecton.
@@ -98,82 +99,98 @@ if(!isset($_SESSION['access_token']))
             // Checking if the login button is pressed.
             if($login_button == '')
             {
-                // Checks so the user have an appropriate rank.
-                if($_SESSION['rank'] == '1' || $_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
+                if (
+                    (
+                        strtolower(substr($email_restriction, 0, 1)) == 'y'
+                        && strtolower($_SESSION['given_name']).".".strtolower($_SESSION['family_name'])."@".$email_domain == $_SESSION['email']
+                    )
+                    || strtolower(substr($email_restriction, 0, 1)) == 'n'
+                    || $_SESSION['rank'] == '3'
+                    || $_SESSION['rank'] == '4'
+                )
                 {
-                    echo '
-                        <img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />
-                        <p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>
-                    ';
-
-                    // A logout button.
-                    echo '
-                        <form action="scripts/logout-script.php" method="post">
-                            <button type="submit" name="logout-submit"><p>LOGOUT</p></button>
-                        </form>
-                    ';
-
-                    // A button that sends a request to open the door.
-                    echo '
-                        <form action="scripts/request-script.php" method="post">
-                            <button type="submit" name="request-submit"><p>OPEN DOOR</p></button>
-                        </form>
-                    ';
-
-                    // Adds a user add form for moderator, admins and fallbackadmin.
-                    if($_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
+                    // Checks so the user have an appropriate rank.
+                    if($_SESSION['rank'] == '1' || $_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
                     {
                         echo '
-                            <form action="scripts/add_user-script.php" method="post">
-                                <input type="text" placeholder="given_name" name="given_name">
-                                <input type="text" placeholder="family_name" name="family_name">
-                                <input type="text" placeholder="email" name="email">
+                            <img src="'.$_SESSION["picture"].'" class="img-responsive img-circle img-thumbnail" />
+                            <p>Name : '.$_SESSION['given_name'].' '.$_SESSION['family_name'].'</p>
                         ';
-                        
-                        // Adds the option for admins adn fallbackadmins too select what rank a new user is supose to have.
-                        if($_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
+
+                        // A logout button.
+                        echo '
+                            <form action="scripts/logout-script.php" method="post">
+                                <button type="submit" name="logout-submit"><p>LOGOUT</p></button>
+                            </form>
+                        ';
+
+                        // A button that sends a request to open the door.
+                        echo '
+                            <form action="scripts/request-script.php" method="post">
+                                <button type="submit" name="request-submit"><p>OPEN DOOR</p></button>
+                            </form>
+                        ';
+
+                        // Adds a user add form for moderator, admins and fallbackadmin.
+                        if($_SESSION['rank'] == '2' || $_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
                         {
                             echo '
-                                <input type="radio" id="user" value="1" name="rank">
-                                <label for="user">User</label>
-                                <input type="radio" id="moderator" value="2" name="rank">
-                                <label for="moderator">Moderator</label>
-                                <input type="radio" id="admin" value="3" name="rank">
-                                <label for="admin">Admin</label>
+                                <form action="scripts/add_user-script.php" method="post">
+                                    <input type="text" placeholder="given_name" name="given_name">
+                                    <input type="text" placeholder="family_name" name="family_name">
+                                    <input type="text" placeholder="email" name="email">
+                            ';
+                            
+                            // Adds the option for admins adn fallbackadmins too select what rank a new user is supose to have.
+                            if($_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
+                            {
+                                echo '
+                                    <input type="radio" id="user" value="1" name="rank">
+                                    <label for="user">User</label>
+                                    <input type="radio" id="moderator" value="2" name="rank">
+                                    <label for="moderator">Moderator</label>
+                                    <input type="radio" id="admin" value="3" name="rank">
+                                    <label for="admin">Admin</label>
+                                ';
+                            }
+
+                            // A button to add user email, first and lastname to the database.
+                            echo '
+                                    <button type="submit" name="user-submit">ADD USER</button>
+                                </form>
                             ';
                         }
 
-                        // A button to add user email, first and lastname to the database.
-                        echo '
-                                <button type="submit" name="user-submit">ADD USER</button>
-                            </form>
-                        ';
+                        // Shows admins and fallbackadmins a list of all users bellow their rank.
+                        if ($_SESSION['rank'] == '3'|| $_SESSION['rank'] == '4')
+                        {
+                            // A button that sends a request to open the door.
+                            echo '
+                                <form action="user_list.php" method="post">
+                                    <button type="submit" name="list_users-submit"><p>USER LIST</p></button>
+                                </form>
+                            ';
+                        }
                     }
 
-                    // Shows admins and fallbackadmins a list of all users bellow their rank.
-                    if ($_SESSION['rank'] == '3'|| $_SESSION['rank'] == '4')
-                    {
-                        // A button that sends a request to open the door.
-                        echo '
-                            <form action="user_list.php" method="post">
-                                <button type="submit" name="list_users-submit"><p>USER LIST</p></button>
-                            </form>
-                        ';
+                    // Logs a person out if they dont have a rank/do not exist in the database.
+                    else 
+                    {   
+                        require "scripts/logout-script.php";
+                        header('Location: ../index.php?err=no-access');
+                        exit();
                     }
                 }
-
-                // Logs a person out if they dont have a rank/do not exist in the database.
-                else 
-                {   
-                    $google_client->revokeToken($_SESSION['access_token']);
-                    session_destroy();
+                else
+                {
+                    require "scripts/logout-script.php";
                     header('Location: ../index.php?err=no-access');
                     exit();
                 }
             }
             else
             {
-                echo '<div>'.$login_button . '</div*>';
+                echo '<div>'.$login_button . '</div>';
             }
 
             // Importing standardized footer.
