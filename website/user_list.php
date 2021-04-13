@@ -47,7 +47,7 @@
                 // Adds form and button to delete user.
                 echo '
                     <form action="scripts/delete_user-script.php" method="post">
-                        <input type="hidden" name="id" user="'.$user['id'].'">
+                        <input type="hidden" name="id" value="'.$user['id'].'">
                         <button type="submit" name="delete_user-submit"><p>REMOVE USER</p></button>
                     </form>
                 ';
