@@ -47,6 +47,7 @@ if(isset($_GET["code"]))
             $_SESSION['picture'] = $data['picture'];
         }
     }
+    header('Location: ../index.php?');
 }
 
 //This is for check user has login into system by using Google account, if User not login into system then it will execute if block of code and make code for display Login link for Login using Google account.
