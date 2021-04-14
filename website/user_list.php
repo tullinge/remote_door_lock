@@ -1,4 +1,9 @@
 <html>
+    <!-- Linking to css and javascript files -->
+    <head>
+        <link rel="stylesheet" href="website_structure/root.css">
+        <link rel="stylesheet" href="website_structure/user_list.css">
+    </head>
     <?php
         include 'website_structure/header.php';
     ?>
@@ -34,49 +39,84 @@
             // Echos the list of users one user at a time.
             foreach ($users as $user)
             {
+                // CSS
                 echo '
-                    <br>'.$user['given_name'].' '.$user['family_name'].'
-                    <br>'.$user['email'].'<br>
+                    <style>
+                        .grid_user_'.$user['id'].'_wrapper {
+                            background-color: hsl(0, 0%, 85%);
+                            display: grid;
+                            width: 100vw;
+                            height: 4vw;
+                            margin-top: 1vw;
+                            margon-bottom: 1vw;
+                            grid-gap: .5vw;
+                            text-align: center;
+                            grid-template-rows: 1fr 1fr;
+                            grid-template-columns: 1fr 4fr 1fr 2fr;
+                            grid-template-areas:
+                            "grid_user_'.$user['id'].'_name grid_user_'.$user['id'].'_email grid_user_'.$user['id'].'_rank grid_user_'.$user['id'].'_added_by"
+                            "grid_user_'.$user['id'].'_delete_form grid_user_'.$user['id'].'_update_form grid_user_'.$user['id'].'_update_form grid_user_'.$user['id'].'_update_form";
+                        }
+                    </style>
+                ';
+
+                // User HTML
+                echo '
+                    <div class="grid_user_'.$user['id'].'_wrapper">
+                        <div class="grid_user_'.$user['id'].'_name">
+                            <p class="name">'.$user['given_name'].' '.$user['family_name'].'</p>
+                        </div>
+                        <div class="grid_user_'.$user['id'].'_email">
+                            <p> '.$user['email'].'</p>
+                        </div>
+                    
                 ';
                 if ($user['rank'] == 1)
                 {
-                    echo 'Rank: User';
+                    echo '
+                        <div class="grid_user_'.$user['id'].'_rank">
+                            <p>Rank: User</p>
+                        </div>
+                    ';
                 }
                 
                 else if ($user['rank'] == 2)
                 {
-                    echo 'Rank: Moderator';
+                    echo '
+                        <div class="grid_user_'.$user['id'].'_rank">    
+                            <p>Rank: Moderator</p>
+                        </div>
+                    ';
                 }
                 else if ($user['rank'] == 3)
                 {
-                    echo 'Rank: Admin';
+                    echo '
+                        <div class="grid_user_'.$user['id'].'_rank">
+                            <p>Rank: Admin</p>
+                        </div>
+                    ';
                 }
 
                 // Checks if the person is admin or fallback admin and if they are shown the email of the person that added them.
                 if($_SESSION['rank'] == '3' || $_SESSION['rank'] == '4')
                 {
                     echo '
-                       <p>Added by: '.$user['added_by'].'</p>
+                        <div class="grid_user_'.$user['id'].'_added_by">
+                            <p>Added by: '.$user['added_by'].'</p>
+                        </div>
                     ';
                 }
                 // Adds form and button to delete user.
                 echo '
-                    <button><p>EDIT USER</p></button>
-                    <div>
-                ';
-
-                echo '
-                    <form action="scripts/delete_user-script.php" method="post">
-                        <input type="hidden" name="id" value="'.$user['id'].'">
-                        <button type="submit" name="delete_user-submit">
-                            <p>REMOVE USER</p>
-                        </button>
-                    </form>
-                ';
-
-                echo '
+                    <div class="grid_user_'.$user['id'].'_delete_form">
+                        <form action="scripts/delete_user-script.php" method="post">
+                            <input type="hidden" name="id" value="'.$user['id'].'">
+                            <button type="submit" name="delete_user-submit"><p>REMOVE USER</p></button>
+                        </form>
+                    </div>
+                    <div class="grid_user_'.$user['id'].'_update_form">
                     <form action="scripts/update_user-script.php" method="post">
-                ';
+            ';
 
                 if ($_SESSION['rank'] == '4')
                 {
@@ -116,15 +156,11 @@
                     echo '<input type="radio" id="admin" name="rank" value="3">';
                 }
                 echo '
-                        <label for="admin">ADMIN</label>
-                        <input type="hidden" name="id" value="'.$user['id'].'">
-                        <button type="submit" name="update_user-submit">
-                            <p>UPDATE USER</p>
-                        </button>
-                    </form>
-                ';
-
-                echo'
+                                <label for="admin">ADMIN</label>
+                                <input type="hidden" name="id" value="'.$user['id'].'">
+                                <button type="submit" name="update_user-submit"><p>UPDATE USER</p></button>
+                            </form>
+                        </div>
                     </div>
                 ';
             }
