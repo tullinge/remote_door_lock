@@ -86,22 +86,57 @@ void loop()
         init_oldvalue = 1;
       }
       
-       // These lines of code checks if value is greater then the old value and runs the code
+      // These lines of code checks if value is greater then the old value and runs the code
       if (value > oldvalue)
       {
-        if (servo == 1)
+        if (toggle == 1)
         {
-          // This is the code which makes the servo run
-          myservo.write(5);
-          delay(act_timer);
-          myservo.write(25);
+          if (toggle_state == 0)
+          {
+            if (servo == 1)
+            {
+              // This is the code which makes the servo run
+              myservo.write(25);
+            }
+            else
+            {
+              // This is the code which makes the relay run
+              digitalWrite(output_pin, LOW);
+            }
+            toggle_state = 1;
+          }
+          else
+          {
+            if (servo == 1)
+            {
+              // This is the code which makes the servo run
+              myservo.write(5);
+            }
+            else
+            {
+              // This is the code which makes the relay run
+              digitalWrite(output_pin, HIGH);
+            }
+            toggle_state = 0;
+          }
+          Serial.println(toggle_state);
         }
         else
         {
-          // This is the code which makes the relay run
-          digitalWrite(output_pin, HIGH);
-          delay(act_timer);
-          digitalWrite(output_pin, LOW);
+          if (servo == 1)
+          {
+            // This is the code which makes the servo run
+            myservo.write(5);
+            delay(act_timer);
+            myservo.write(25);
+          }
+          else
+          {
+            // This is the code which makes the relay run
+            digitalWrite(output_pin, HIGH);
+            delay(act_timer);
+            digitalWrite(output_pin, LOW);
+          }
         }
       oldvalue = value; 
       }
