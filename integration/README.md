@@ -1,5 +1,6 @@
 # Integration of ESP32 with relay
 
+Here yopu can find information on how to integrat a relay into an existing button.
 # Switch type
 
 Depending on what type of switch you are trying to remote controll you will need slighty difrent wiering.

@@ -1,4 +1,5 @@
 # API
+Here you can find information about teh api page/script witch displays the information from the database on a page or the esp32 to fetch.
 
 ## Page
 The API page is named after which microcontroler is supose to read the number.

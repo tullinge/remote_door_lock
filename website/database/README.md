@@ -1,5 +1,5 @@
 # Database
-The database is used to keep track of who can sign and who can add new users, moderators and admins. It is also used to be kept as a log off when the request were sent and by whom.
+The database is used to keep track of who can sign and who can add new users, moderators, admins and fallback admin. It is also used to be kept as a log off when the request were sent and by whom.
 
 ## Uses
 The database is used to keep track of every time the request system is used and to keep track off who is an admin and what personel is allowed to have free access.
