@@ -76,14 +76,19 @@ A higher rank can do anything the lower ranks can do and have access to more fea
 * A **logged in moderator** will be able to **register new users** by sending in their firstname, lastname and email.
 
 ### Admin
-* A **logged in admin** will be able to **reigster new moderators** by sending in their firstname, lastname and email.
-* A **logged in admin** will be able to **reigster new admins** by sending in their firstname, lastname and email.
+* A **logged in admin** will be able to **register new moderators** by sending in their firstname, lastname and email.
+* A **logged in admin** will be able to **register new admins** by sending in their firstname, lastname and email.
 * A **logged in admin** will be able to **get a list of registered users**.
 * A **logged in admin** will be able to **remove registered users** from accessing the system.
 * A **logged in admin** will be able to **remove registered moderators** from accessing the system.
+* A **logged in admin** will be able to **change registered user rank** in the database
+* A **logged in admin** will be able to **change registered moderators rank** in the database
 
 ### Fallback Admin
 * A **logged in fallback admin** will be able to **remove registered admins** from accessing the system.
+* A **logged in fallback admin** will be able to **change registered user given_name, family_name and email** in the database
+* A **logged in fallback admin** will be able to **change registered moderators given_name, family_name and email** in the database
+* A **logged in fallback admin** will be able to **change registered admins given_name, family_name, email and rank** in the database
 
 
 ## Second button
