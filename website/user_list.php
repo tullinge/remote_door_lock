@@ -8,6 +8,10 @@
         include 'website_structure/header.php';
     ?>
     <body>
+    <form method="post">
+        <input type="text" placeholder="search_parameter" name="search_parameter">
+        <button type="submit" name="search_parameter-submit"><p>SEARCH</p></button>
+    </form>
     <?php
         //Include configuration file.
         include('config.php');
@@ -36,6 +40,33 @@
                 array_push($users, $user);
             }
             mysqli_close($conn);
+
+            if (isset($_POST['search_parameter-submit']) && $_POST['search_parameter'] != '')
+            {
+                $i = 0;
+                foreach ($users as $user)
+                {
+                    
+                    $full_name = $user['given_name'].' '.$user['family_name'];
+                    $full_name_reversed = $user['family_name'].' '.$user['given_name'];
+                    if (
+                            strpos($full_name, $_POST['search_parameter']) !== false 
+                            || strpos($full_name_reversed, $_POST['search_parameter']) !== false 
+                            || strpos($user['given_name'], $_POST['search_parameter']) !== false 
+                            || strpos($user['family_name'], $_POST['search_parameter']) !== false 
+                            || strpos($user['email'], $_POST['search_parameter']) !== false
+                        )
+                    {
+                        
+                    }
+                    else
+                    {
+                        unset($users[$i]);
+                    }
+                    $i += 1;
+                }
+            }
+
             // Echos the list of users one user at a time.
             foreach ($users as $user)
             {
