@@ -1,5 +1,6 @@
 DROP TABLE RDL_users;
 DROP TABLE RDL_log;
+DROP TABLE RDL_esp32_config;
 
 CREATE TABLE RDL_users (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -19,4 +20,16 @@ CREATE TABLE RDL_log (
 	`email` VARCHAR(150) NOT NULL,
 	`time` TIMESTAMP NOT NULL DEFAULT NOW(),
 	PRIMARY KEY (id)
+);
+
+CREATE TABLE `RDL_esp32_config` (
+  `id` int(11) NOT NULL,
+  `log_table` varchar(50) NOT NULL,
+  `servo` tinyint(4) NOT NULL DEFAULT 0,
+  `toggle` tinyint(4) NOT NULL DEFAULT 0,
+  `delay_timer` int(11) NOT NULL DEFAULT 500,
+  `act_timer` int(11) NOT NULL DEFAULT 1000,
+  `output_pin` int(11) NOT NULL DEFAULT 0,
+  `led_pin` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (id)
 );

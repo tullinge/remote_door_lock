@@ -29,4 +29,4 @@ CREATE TABLE `RDL_esp32_config` (
   `output_pin` int(11) NOT NULL DEFAULT 0,
   `led_pin` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (id)
-)
+);
