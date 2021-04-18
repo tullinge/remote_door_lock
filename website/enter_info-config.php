@@ -18,7 +18,7 @@ $google_client->setClientSecret('');
 //Set the OAuth 2.0 Redirect URI
 $google_client->setRedirectUri('https://URL.com/index.php');
 
-//
+// adds email and profeile to scope of google client
 $google_client->addScope('email');
 
 $google_client->addScope('profile');
@@ -28,6 +28,11 @@ $email_restriction = ''; // y/yes or n/no
 
 // If you have restricted email active this is the ending domain.
 $email_domain = 'gmail.com'; // Defualt "gmail.com"
+
+// Email template for email restriction.
+// §given_name§ = $_SESSION['given_name']
+// §family_name§ = $_SESSION['family_name']
+$email_template = "§given_name§.§family_name§@§email_domain§";
 
 //start session on web page
 session_start();

@@ -12,6 +12,11 @@
             echo '<p>Add user form not filled out</p>';
         }
 
+        else if ($_GET['err'] == "email-template-not-match")
+        {
+            echo '<p>Add user fomr did not have correct template for email.</p>';
+        }
+
         else if ($_GET['err'] == "already-exist")
         {
             echo '<p>User already exist in the system</p>';

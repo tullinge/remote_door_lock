@@ -57,6 +57,10 @@ if(!isset($_SESSION['access_token']))
  $login_button = '<a href="'.$google_client->createAuthUrl().'"><p>Login</p></a>';
 }
 
+$email_template_temp = str_replace($_SESSION['given_name'], '§given_name§', $email_template);
+$email_template_temp = str_replace($_SESSION['family_name'], '§family_name§', $email_template_temp);
+$email_template_temp = str_replace($email_domain, '§email_domain§', $email_template_temp);
+
 ?>
 <html>
     <head>
@@ -98,12 +102,12 @@ if(!isset($_SESSION['access_token']))
             mysqli_close($conn);
 
             // Checking if the login button is pressed.
-            if($login_button == '')
+            if ($login_button == '')
             {
                 if (
                     (
                         strtolower(substr($email_restriction, 0, 1)) == 'y'
-                        && strtolower($_SESSION['given_name']).".".strtolower($_SESSION['family_name'])."@".$email_domain == $_SESSION['email']
+                        && strtolower($email_template_temp) == $_SESSION['email']
                     )
                     || strtolower(substr($email_restriction, 0, 1)) == 'n'
                     || $_SESSION['rank'] == '3'
