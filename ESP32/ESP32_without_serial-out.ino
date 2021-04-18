@@ -3,10 +3,12 @@
 #include <HTTPClient.h>
 #include <Servo.h>
 #include <Stdlib.h>
+#include <StringSplitter.h>
 
 Servo myservo;
 // Declaration of setting varibels
 int servo = 1; // Use 1 for servo and 0 for relay
+int toggle = 1; // Use 1 for toggel betwene closed/pressed and open/retracted for every time you request or 0 for a quick closing/press and opening/retraction for every request.
 
 int output_pin = Enter_pin_num_here; // Pinout for servo or relay
 int led_pin = Enter_pin_num_here; // Pinout for LED
@@ -23,6 +25,7 @@ int act_timer = 1000; // Time from start of acton to end. For example time the r
 int value = 1;
 int oldvalue = 0;
 int init_oldvalue = 0;
+int toggle_state = 0;
 
 // This is the setup
 void setup() 
@@ -57,6 +60,18 @@ void loop()
   
   // This line of code sets the led status to low
   digitalWrite(led_pin, LOW);
+
+  // Used to redefine pin if the output_pin and led_pin has been changed
+  if (servo == 1)
+  {
+    myservo.attach(output_pin);
+    myservo.write(25);
+  }
+  else
+  {
+    pinMode(output_pin, OUTPUT);
+    digitalWrite(output_pin, LOW);
+  }
   
   //Check WiFi connection status
   if(WiFi.status()== WL_CONNECTED)
@@ -75,9 +90,44 @@ void loop()
     // This line chcks if the http response code is OK
     if (httpResponseCode == 200)
     {
-      // These lines of code converts the string from the API to an int
+      // These lines of code converts the string from the API to seperated strngs
       String payload = http.getString();
-      int value = atoi(payload.c_str());
+      StringSplitter *splitter = new StringSplitter(payload, ',', 50);
+      
+      // redefines value from the string
+      String item_0 = splitter->getItemAtIndex(0);
+      int temp_0 = String(item_0).toInt();
+      value = temp_0;
+      
+      // redefines servo from the string
+      String item_1 = splitter->getItemAtIndex(1);
+      int temp_1 = String(item_1).toInt();
+      servo = temp_1;
+      
+      // redefines toggle from the string
+      String item_2 = splitter->getItemAtIndex(2);
+      int temp_2 = String(item_2).toInt();
+      toggle = temp_2;
+      
+      // redefines delay_timer from the string
+      String item_3 = splitter->getItemAtIndex(3);
+      int temp_3 = String(item_3).toInt();
+      delay_timer = temp_3;
+      
+      // redefines act_timer from the string
+      String item_4 = splitter->getItemAtIndex(4);
+      int temp_4 = String(item_4).toInt();
+      act_timer = temp_4;
+      
+      // redefines output_pin from the string
+      String item_5 = splitter->getItemAtIndex(5);
+      int temp_5 = String(item_5).toInt();
+      output_pin = temp_5;
+      
+      // redefines led_pin from the string
+      String item_6 = splitter->getItemAtIndex(6);
+      int temp_6 = String(item_6).toInt();
+      led_pin = temp_6;
       
       // These lines of code prevents boot up signals
       if (init_oldvalue == 0)
