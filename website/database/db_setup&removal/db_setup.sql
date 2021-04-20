@@ -20,7 +20,8 @@ CREATE TABLE RDL_log (
 );
 
 CREATE TABLE `RDL_esp32_config` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,*
+  `unit_name` varchar(50) DEFAULT NULL,
   `log_table` varchar(50) NOT NULL,
   `servo` tinyint(4) NOT NULL DEFAULT 0,
   `toggle` tinyint(4) NOT NULL DEFAULT 0,
