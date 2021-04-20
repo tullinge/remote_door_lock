@@ -1,5 +1,5 @@
 <html>
-    <!-- Linking to css and javascript files -->
+    <!-- Linking to css files -->
     <head>
         <link rel="stylesheet" href="website_structure/root.css">
         <link rel="stylesheet" href="website_structure/user_list.css">
@@ -49,6 +49,7 @@
                     
                     $full_name = $user['given_name'].' '.$user['family_name'];
                     $full_name_reversed = $user['family_name'].' '.$user['given_name'];
+                    // Checks all diffrent parameters as parts off first/last/email
                     if (
                             strpos($full_name, $_POST['search_parameter']) !== false 
                             || strpos($full_name_reversed, $_POST['search_parameter']) !== false 
