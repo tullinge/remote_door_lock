@@ -74,20 +74,27 @@
                 // CSS
                 echo '
                     <style>
+                        .grid_user_'.$user['id'].'_name { grid-area: grid_name; }
+                        .grid_user_'.$user['id'].'_email { grid-area: grid_email; }
+                        .grid_user_'.$user['id'].'_rank { grid-area: grid_rank; }
+                        .grid_user_'.$user['id'].'_added_by { grid-area: grid_added_by; }
+                        .grid_user_'.$user['id'].'_delete_form { grid-area: grid_delete_form; }
+                        .grid_user_'.$user['id'].'_update_form { grid-area: grid_update_form; }
+
                         .grid_user_'.$user['id'].'_wrapper {
                             background-color: hsl(0, 0%, 85%);
                             display: grid;
-                            width: 100vw;
+                            width: 100%;
                             height: 4vw;
                             margin-top: 1vw;
                             margon-bottom: 1vw;
                             grid-gap: .5vw;
                             text-align: center;
                             grid-template-rows: 1fr 1fr;
-                            grid-template-columns: 1fr 4fr 1fr 2fr;
+                            grid-template-columns: 3fr 4fr 3fr 20fr 10fr;
                             grid-template-areas:
-                            "grid_user_'.$user['id'].'_name grid_user_'.$user['id'].'_email grid_user_'.$user['id'].'_rank grid_user_'.$user['id'].'_added_by"
-                            "grid_user_'.$user['id'].'_delete_form grid_user_'.$user['id'].'_update_form grid_user_'.$user['id'].'_update_form grid_user_'.$user['id'].'_update_form";
+                            "grid_name grid_email grid_rank . grid_added_by"
+                            ". grid_delete_form grid_update_form grid_update_form grid_update_form";
                         }
                     </style>
                 ';
@@ -107,7 +114,7 @@
                 {
                     echo '
                         <div class="grid_user_'.$user['id'].'_rank">
-                            <p>Rank: User</p>
+                            <p>User</p>
                         </div>
                     ';
                 }
@@ -116,7 +123,7 @@
                 {
                     echo '
                         <div class="grid_user_'.$user['id'].'_rank">    
-                            <p>Rank: Moderator</p>
+                            <p>Moderator</p>
                         </div>
                     ';
                 }
@@ -124,7 +131,7 @@
                 {
                     echo '
                         <div class="grid_user_'.$user['id'].'_rank">
-                            <p>Rank: Admin</p>
+                            <p>Admin</p>
                         </div>
                     ';
                 }
