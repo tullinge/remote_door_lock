@@ -50,9 +50,9 @@
                 foreach ($units as $unit)
                 {
                     if (
-                            ($_POST['search_parameter'] == $user['id']
-                            || strpos($user['unit_name'], $_POST['search_parameter']) !== false
-                            || strpos($user['log_table'], $_POST['search_parameter']) !== false
+                            ($_POST['search_parameter'] == $unit['id']
+                            || strpos($unit['unit_name'], $_POST['search_parameter']) !== false
+                            || strpos($unit['log_table'], $_POST['search_parameter']) !== false
                             )
                         )
                     {
@@ -72,41 +72,86 @@
                 // CSS
                 echo '
                     <style>
+                        .grid_unit_'.$unit['id'].'_id
+                        { 
+                            grid-area: grid_id;
+                            margin: auto;
+                        }
+                        .grid_unit_'.$unit['id'].'_unit_name
+                        {
+                            grid-area: grid_unit_name;
+                            margin: auto;
+                        }
+                        .grid_unit_'.$unit['id'].'_log_table
+                        {
+                            grid-area: grid_log_table;
+                            margin: auto;
+                        }
+                        .grid_unit_'.$unit['id'].'_delete_form
+                        {
+                            grid-area: grid_delete_form;
+                            margin: auto;
+                        }
+                        .grid_unit_'.$unit['id'].'_update_form
+                        {
+                            grid-area: grid_update_form;
+                            margin: auto;
+                        }
+                        
                         .grid_unit_'.$unit['id'].'_wrapper {
                             background-color: hsl(0, 0%, 85%);
                             display: grid;
-                            width: 100vw;
+                            width: 100%;
                             height: 4vw;
                             margin-top: 1vw;
                             margon-bottom: 1vw;
                             grid-gap: .5vw;
-                            text-align: center;
                             grid-template-rows: 1fr 1fr;
-                            grid-template-columns: 1fr 4fr 1fr 2fr;
+                            grid-template-columns: 2fr 3fr 3fr 30fr;
                             grid-template-areas:
-                            "grid_unit_'.$unit['id'].'_unit_name grid_unit_'.$unit['id'].'_log_table   grid_unit_'.$unit['id'].'_id"
-                            "grid_unit_'.$unit['id'].'_delete_form grid_unit_'.$unit['id'].'_update_form grid_unit_'.$unit['id'].'_update_form grid_unit_'.$unit['id'].'_update_form";
+                            "grid_id grid_unit_name grid_log_table grid_update_form"
+                            ". grid_delete_form . grid_update_form";
                         }
                     </style>
                 ';
                 // Adds form and button to delete unit.
                 echo '
                     <div class="grid_unit_'.$unit['id'].'_wrapper">
+                    <div class="grid_unit_'.$unit['id'].'_id">
+                        <p>id:'.$unit['id'].'</p>
+                    </div>
+                        <div class="grid_unit_'.$unit['id'].'_unit_name">
+                            <p>'.$unit['unit_name'].'</p>
+                        </div>
+                        <div class="grid_unit_'.$unit['id'].'_log_table">
+                            <p>'.$unit['log_table'].'</p>
+                        </div>
                         <div class="grid_unit_'.$unit['id'].'_delete_form">
                             <form action="scripts/delete_unit-script.php" method="post">
                                 <input type="hidden" name="id" value="'.$unit['id'].'">
-                                <button type="submit" name="delete_unit-submit"><p>REMOVE unit</p></button>
+                                <button type="submit" name="delete_unit-submit"><p>REMOVE UNIT</p></button>
                             </form>
                         </div>
                         <div class="grid_unit_'.$unit['id'].'_update_form">
                             <form action="scripts/update_unit-script.php" method="post">
-                                <input type="text" value="'.$unit['name'].'" placeholder="name" name="name">
-                                <input type="text" value="'.$unit['log_table'].'" placeholder="log_table" name="log_table">
-                                <input type="number" value="'.$unit['delay_timer'].'" placeholder="delay_timer" name="delay_timer">
-                                <input type="number" value="'.$unit['act_timer'].'" placeholder="act_timer" name="act_timer">
-                                <input type="number" value="'.$unit['output_pin'].'" placeholder="output_pin" name="output_pin">
-                                <input type="number" value="'.$unit['led_pin'].'" placeholder="led_pin" name="led_pin">
-                '; 
+                                <div class="row_1_inputs">
+                                    <label for="unit_name">unit_name</label>
+                                    <input type="text" id="unit_name" value="'.$unit['unit_name'].'" placeholder="unit_name" name="unit_name">
+                                    <label for="log_table">log_table</label>
+                                    <input type="text" id="log_table" value="'.$unit['log_table'].'" placeholder="log_table" name="log_table">
+                                    <label for="delay_timer">delay_timer</label>
+                                    <input type="number" id="delay_timer" value="'.$unit['delay_timer'].'" placeholder="delay_timer" name="delay_timer">
+                                    <label for="act_timer">act_timer</label>
+                                    <input type="number" id="act_timer" value="'.$unit['act_timer'].'" placeholder="act_timer" name="act_timer">
+                                </div>
+                                <div class="row_2_inputs">
+                                    <label for="output_pin">output_pin</label>
+                                    <input type="number" id="output_pin" value="'.$unit['output_pin'].'" placeholder="output_pin" name="output_pin">
+                                    <label for="led_pin">led_pin</label>
+                                    <input type="number" id="led_pin" value="'.$unit['led_pin'].'" placeholder="led_pin" name="led_pin">
+                                    <label for="servo">servo</label>
+                ';
+
                 if ($unit['servo'] == '1')
                 {
                     echo '<input type="checkbox" id="servo" name="servo" value="1" checked="checked">';
@@ -115,8 +160,8 @@
                 {
                     echo '<input type="checkbox" id="servo" name="servo" value="1">';
                 }
-                echo '<label for="servo">servo</label>';
-
+                
+                echo '<label for="toggle">toggle</label>';
                 if ($unit['toggle'] == '1')
                 {
                     echo '<input type="checkbox" id="toggle" name="toggle" value="1" checked="checked">';
@@ -125,11 +170,11 @@
                 {
                     echo '<input type="checkbox" id="toggle" name="toggle" value="1">';
                 }
-                echo '<label for="toggle">toggle</label>';
 
                 echo '
-                                <input type="hidden" name="id" value="'.$unit['id'].'">
-                                <button type="submit" name="update_unit-submit"><p>UPDATE unit</p></button>
+                                    <input type="hidden" name="id" value="'.$unit['id'].'">
+                                    <button type="submit" name="update_unit-submit"><p>UPDATE UNIT</p></button>
+                                </div>
                             </form>
                         </div>
                     </div>
