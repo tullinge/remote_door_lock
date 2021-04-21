@@ -18,7 +18,7 @@ if (isset($_POST['delete_user-submit']))
     else
     {
         // Defining sql query and initalizing a connection to the database.
-        $sql = 'SELECT `rank` FROM RDL_users WHERE id=?;';
+        $sql = 'SELECT `rank` FROM `RDL_users` WHERE `id`=?;';
         $stmt = mysqli_stmt_init($conn);
 
         // Checking if their is a problem with the sql query.
@@ -45,7 +45,7 @@ if (isset($_POST['delete_user-submit']))
                 exit();
             }
 
-            // Inserts the new users variables into the database.
+            // remove the user from the database.
             else{
                 $sql = "DELETE FROM `RDL_users` WHERE `id` = ?;";
                 $stmt = mysqli_stmt_init($conn);

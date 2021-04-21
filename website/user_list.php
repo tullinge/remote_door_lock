@@ -23,7 +23,7 @@
         {
             // defines the sql query and sends it.
             $users = [];
-            $sql = "SELECT `id`,`given_name`,`family_name`,`email`,`rank`,`added_by` FROM RDL_users WHERE `rank` < ".$_SESSION['rank']." ORDER BY `family_name` ASC, `given_name` ASC;";
+            $sql = "SELECT `id`,`given_name`,`family_name`,`email`,`rank`,`added_by` FROM `RDL_users` WHERE `rank` < ".$_SESSION['rank']." ORDER BY `family_name` ASC, `given_name` ASC;";
             $result = mysqli_query($conn, $sql);
 
             // Fetches and saves the user info in an array to be printed from.
@@ -74,12 +74,36 @@
                 // CSS
                 echo '
                     <style>
-                        .grid_user_'.$user['id'].'_name { grid-area: grid_name; }
-                        .grid_user_'.$user['id'].'_email { grid-area: grid_email; }
-                        .grid_user_'.$user['id'].'_rank { grid-area: grid_rank; }
-                        .grid_user_'.$user['id'].'_added_by { grid-area: grid_added_by; }
-                        .grid_user_'.$user['id'].'_delete_form { grid-area: grid_delete_form; }
-                        .grid_user_'.$user['id'].'_update_form { grid-area: grid_update_form; }
+                        .grid_user_'.$user['id'].'_name
+                        {
+                            grid-area: grid_name;
+                            margin: auto;
+                        }
+                        .grid_user_'.$user['id'].'_email
+                        {
+                            grid-area: grid_email;
+                            margin: auto;
+                        }
+                        .grid_user_'.$user['id'].'_rank
+                        {
+                            grid-area: grid_rank;
+                            margin: auto;
+                        }
+                        .grid_user_'.$user['id'].'_added_by
+                        {
+                            grid-area: grid_added_by;
+                            margin: auto;
+                        }
+                        .grid_user_'.$user['id'].'_delete_form
+                        {
+                            grid-area: grid_delete_form;
+                            margin: auto;
+                        }
+                        .grid_user_'.$user['id'].'_update_form
+                        {
+                            grid-area: grid_update_form;
+                            margin: auto;
+                        }
 
                         .grid_user_'.$user['id'].'_wrapper {
                             background-color: hsl(0, 0%, 85%);
@@ -89,7 +113,6 @@
                             margin-top: 1vw;
                             margon-bottom: 1vw;
                             grid-gap: .5vw;
-                            text-align: center;
                             grid-template-rows: 1fr 1fr;
                             grid-template-columns: 3fr 4fr 3fr 20fr 10fr;
                             grid-template-areas:

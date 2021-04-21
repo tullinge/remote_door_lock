@@ -18,7 +18,7 @@ if (isset($_POST['update_user-submit']))
     else
     {
         // Defining sql query and initalizing a connection to the database.
-        $sql = 'SELECT `given_name`,`family_name`,`email`,`rank` FROM RDL_users WHERE id=?;';
+        $sql = 'SELECT `given_name`,`family_name`,`email`,`rank` FROM `RDL_users` WHERE `id` = ?;';
         $stmt = mysqli_stmt_init($conn);
 
         // Checking if their is a problem with the sql query.
