@@ -1,6 +1,7 @@
 <html>
     <!-- Linking to css files -->
     <head>
+        <title>RDL User list</title>
         <link rel="stylesheet" href="website_structure/root.css">
         <link rel="stylesheet" href="website_structure/user_list.css">
     </head>
