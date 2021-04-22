@@ -54,7 +54,7 @@ if(isset($_GET["code"]))
 if(!isset($_SESSION['access_token']))
 {
  //Create a URL to obtain user authorization.
- $login_button = '<a href="'.$google_client->createAuthUrl().'"><p>Login</p></a>';
+ $login_button = '<a href="'.$google_client->createAuthUrl().'"><img src="website_structure/img/btn_google_signin_dark_normal_web.png"></a>';
 }
 
 $email_template_temp = str_replace($_SESSION['given_name'], '§given_name§', $email_template);

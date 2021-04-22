@@ -115,7 +115,7 @@
                             margon-bottom: 1vw;
                             grid-gap: .5vw;
                             grid-template-rows: 1fr 1fr;
-                            grid-template-columns: 3fr 4fr 3fr 20fr 10fr;
+                            grid-template-columns: 3fr 6fr 3fr 20fr 8fr;
                             grid-template-areas:
                             "grid_name grid_email grid_rank . grid_added_by"
                             ". grid_delete_form grid_update_form grid_update_form grid_update_form";
@@ -174,7 +174,7 @@
                     <div class="grid_user_'.$user['id'].'_delete_form">
                         <form action="scripts/delete_user-script.php" method="post">
                             <input type="hidden" name="id" value="'.$user['id'].'">
-                            <button type="submit" name="delete_user-submit"><p>REMOVE USER</p></button>
+                            <button type="submit" name="delete_user-submit" class="remove_user_button"><p>REMOVE USER</p></button>
                         </form>
                     </div>
                     <div class="grid_user_'.$user['id'].'_update_form">

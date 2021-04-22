@@ -1,0 +1,6 @@
+.remove_user_button{
+    background-color: red;
+}
+.remove_user_button p{
+    font-weight: bold;
+}
