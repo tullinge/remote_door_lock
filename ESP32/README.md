@@ -15,7 +15,8 @@ C:\Users\"Your Name"\Documents\Arduino\Libraries
 ```
 
 ### Schematics
-<img src="ESP32_schematic.jpg" height="400">
+<img src="schematics_servo_ESP32.jpg" height="400">
+<img src="schematics_relay_ESP32.jpg" height="400">
 
 ## Setup 
 
