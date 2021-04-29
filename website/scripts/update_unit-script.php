@@ -11,14 +11,14 @@ if (isset($_POST['update_unit-submit']))
     //Sends back unit if they artent properly logged in and logs them out.
     if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
-        require "scripts/logout-script.php";
-        header('Location: ../index.php?err=not-loged-in-properly');
+        require "logout-script.php";
+        header('Location: ../index.php?err=not-logged-in-properly');
         exit();
     }
     else
     {
         // Defining sql query and initalizing a connection to the database.
-        $sql = 'SELECT `unit_name`, `log_table`, `servo`, `toggle`, `delay_timer`, `act_timer`, `output_pin`, `led_pin` FROM RDL_esp32_configs WHERE `id` = ?;';
+        $sql = "SELECT `unit_name`,`log_table`,`servo`,`toggle`,`delay_timer`,`act_timer`,`output_pin`,`led_pin`,`servo_extended`,`servo_retracted` FROM `RDL_esp32_config` WHERE `id`=?;";
         $stmt = mysqli_stmt_init($conn);
 
         // Checking if their is a problem with the sql query.
@@ -34,9 +34,9 @@ if (isset($_POST['update_unit-submit']))
             // Inputs the id of the unit into the query.
             mysqli_stmt_bind_param($stmt, 'i', $_POST['id']);
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $unit_name, $log_table, $servo, $toggle, $delay_timer, $act_timer, $output_pin, $led_pin);
+            mysqli_stmt_bind_result($stmt, $unit_name, $log_table, $servo, $toggle, $delay_timer, $act_timer, $output_pin, $led_pin, $servo_extended, $servo_retracted);
             while (mysqli_stmt_fetch($stmt));
-
+            
             // Checks if any of the boxes are empty. If any of the boxes are empty they will not change anything
             if (empty($_POST['unit_name']))
             {
@@ -78,6 +78,16 @@ if (isset($_POST['update_unit-submit']))
                 $_POST['led_pin'] = $led_pin;
             }
 
+            if (empty($_POST['servo_extended']))
+            {
+                $_POST['servo_extended'] = $servo_extended;
+            }
+
+            if (empty($_POST['servo_retracted']))
+            {
+                $_POST['servo_retracted'] = $servo_retracted;
+            }
+            
             // The if statment that checks so the unit didn't change the html and try to delete a higher ranking person
             if ($rank >= $_SESSION['rank'])
             {
@@ -87,7 +97,7 @@ if (isset($_POST['update_unit-submit']))
 
             // Inserts the new units variables into the database.
             else{
-                $sql = "UPDATE `RDL_esp32_config` SET `unit_name`=?, `log_table`=?, `servo`=?, `toggle`=?, `delay_timer`=?, `act_timer`=?, `output_pin`=?, `led_pin`=? WHERE `id` = ?;";
+                $sql = "UPDATE `RDL_esp32_config` SET `unit_name`=?, `log_table`=?, `servo`=?, `toggle`=?, `delay_timer`=?, `act_timer`=?, `output_pin`=?, `led_pin`=?, `servo_extended`=?, `servo_retracted`=? WHERE `id` = ?;";
                 $stmt = mysqli_stmt_init($conn);
 
                 // Checking if there is a problem with the sql query.
@@ -101,9 +111,8 @@ if (isset($_POST['update_unit-submit']))
                 else
                 {
                     // Inserts the variables into the query.
-                    mysqli_stmt_bind_param($stmt, 'sssii', $_POST['unit_name'], $_POST['log_table'], $_POST['servo'], $_POST['toggle'], $_POST['delay_timer'], $_POST['act_timer'], $_POST['output_pin'], $_POST['led_pin'], $_POST['id']);
+                    mysqli_stmt_bind_param($stmt, 'ssiiiiiiiii', $_POST['unit_name'], $_POST['log_table'], $_POST['servo'], $_POST['toggle'], $_POST['delay_timer'], $_POST['act_timer'], $_POST['output_pin'], $_POST['led_pin'], $_POST['servo_extended'], $_POST['servo_retracted'], $_POST['id']);
                     mysqli_stmt_execute($stmt);
-                    /*mysqli_stmt_store_result($stmt);*/
                     header('Location: ../unit_list.php?sus=unit-updated');
                     exit();
                 }

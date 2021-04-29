@@ -11,7 +11,7 @@ if (isset($_POST['delete_unit-submit']))
     //Sends back unit if they artent properly logged in and logs them out.
     if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
-        require "scripts/logout-script.php";
+        require "logout-script.php";
         header('Location: ../index.php?err=not-loged-in-properly');
         exit();
     }

@@ -23,7 +23,7 @@
         {
             // defines the sql query and sends it.
             $units = [];
-            $sql = "SELECT `id`, `unit_name`, `log_table`, `servo`, `toggle`, `delay_timer`, `act_timer`, `output_pin`, `led_pin` FROM RDL_esp32_config ORDER BY `id` ASC;";
+            $sql = "SELECT `id`, `unit_name`, `log_table`, `servo`, `toggle`, `delay_timer`, `act_timer`, `output_pin`, `led_pin`,`servo_extended`,`servo_retracted` FROM RDL_esp32_config ORDER BY `id` ASC;";
             $result = mysqli_query($conn, $sql);
 
             // Fetches and saves the unit info in an array to be printed from.
@@ -39,6 +39,8 @@
                     "act_timer" => $array[6],
                     "output_pin" => $array[7],
                     "led_pin" => $array[8],
+                    "servo_extended" => $array[9],
+                    "servo_retracted" => $array[10],
                 ];
                 array_push($units, $unit);
             }
@@ -149,6 +151,10 @@
                                     <input type="number" id="output_pin" value="'.$unit['output_pin'].'" placeholder="output_pin" name="output_pin">
                                     <label for="led_pin">led_pin</label>
                                     <input type="number" id="led_pin" value="'.$unit['led_pin'].'" placeholder="led_pin" name="led_pin">
+                                    <label for="servo_extended">servo_extended</label>
+                                    <input type="number" id="servo_extended" value="'.$unit['servo_extended'].'" placeholder="servo_extended" name="servo_extended">
+                                    <label for="servo_retracted">servo_retracted</label>
+                                    <input type="number" id="servo_retracted" value="'.$unit['servo_retracted'].'" placeholder="servo_retracted" name="servo_retracted">
                                     <label for="servo">servo</label>
                 ';
 

@@ -39,7 +39,7 @@ if (isset($_POST['user-submit']))
             //Sends back user if they artent properly loged in and loges them out.
             if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
             {
-                require "scripts/logout-script.php";
+                require "logout-script.php";
                 header('Location: ../index.php?err=not-loged-in-properly');
                 exit();
             }
