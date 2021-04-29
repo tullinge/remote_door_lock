@@ -173,10 +173,20 @@ $email_template_temp = str_replace($email_domain, '§email_domain§', $email_tem
                         // Shows admins and fallbackadmins a list of all users bellow their rank.
                         if ($_SESSION['rank'] == '3'|| $_SESSION['rank'] == '4')
                         {
-                            // A button that sends a request to open the door.
+                            // A button that sends you to the user list page.
                             echo '
                                 <form action="user_list.php" method="post">
                                     <button type="submit" name="list_users-submit"><p>USER LIST</p></button>
+                                </form>
+                            ';
+                        }
+                        // Shows fallbackadmins a list of all units.
+                        if ($_SESSION['rank'] == '4')
+                        {
+                            // A button that sends you to the unit list page.
+                            echo '
+                                <form action="unit_list.php" method="post">
+                                    <button type="submit" name="list_units-submit"><p>UNIT LIST</p></button>
                                 </form>
                             ';
                         }

@@ -1,2 +1,3 @@
 DROP TABLE RDL_users;
 DROP TABLE RDL_log;
+DROP TABLE RDL_esp32_config;
