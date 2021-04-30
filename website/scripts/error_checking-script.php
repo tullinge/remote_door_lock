@@ -17,6 +17,11 @@
             echo '<p>Add user fomr did not have correct template for email.</p>';
         }
 
+        else if ($_GET['err'] == "incompatebel-with-email-template")
+        {
+            echo '<p>The user you are trying to change will not beable to login becuse of the email restriction.</p>';
+        }
+
         else if ($_GET['err'] == "already-exist")
         {
             echo '<p>User already exist in the system</p>';
@@ -57,6 +62,17 @@
         else if ($_GET['sus'] == "added-admin")
         {
             echo '<p>Admin added</p>';
+        }
+
+        else if ($_GET['sus'] == "user-updated")
+        {
+            echo '<p>User updated</p>';
+        }
+
+
+        else if ($_GET['sus'] == "unit-updated")
+        {
+            echo '<p>Unit updated</p>';
         }
 
         else if ($_GET['sus'] == "user-deleted")
