@@ -192,35 +192,35 @@
 
                 if ($user['rank'] == '1')
                 {
-                    echo '<input type="radio" id="user" name="rank" value="1" checked="checked">';
+                    echo '<input type="radio" id="user_'.$user['id'].'" name="rank" value="1" checked="checked">';
                 }
                 else
                 {
-                    echo '<input type="radio" id="user" name="rank" value="1">';
+                    echo '<input type="radio" id="user_'.$user['id'].'" name="rank" value="1">';
                 }
-                echo '<label for="user">USER</label>';
+                echo '<label for="user_'.$user['id'].'">USER</label>';
 
                 if ($user['rank'] == '2')
                 {
-                    echo '<input type="radio" id="moderator" name="rank" value="2" checked="checked">';
+                    echo '<input type="radio" id="moderator_'.$user['id'].'" name="rank" value="2" checked="checked">';
                 }
                 else
                 {
-                    echo '<input type="radio" id="moderator" name="rank" value="2">';
+                    echo '<input type="radio" id="moderator_'.$user['id'].'" name="rank" value="2">';
                 }
-                echo '<label for="moderator">MODERATOR</label>';
+                echo '<label for="moderator_'.$user['id'].'">MODERATOR</label>';
 
                 if ($user['rank'] == '3')
                 {
-                    echo '<input type="radio" id="admin" name="rank" value="3" checked="checked">';
+                    echo '<input type="radio" id="admin_'.$user['id'].'" name="rank" value="3" checked="checked">';
                 }
                 else
                 {
-                    echo '<input type="radio" id="admin" name="rank" value="3">';
+                    echo '<input type="radio" id="admin_'.$user['id'].'" name="rank" value="3">';
                 }
                 echo '
-                                <label for="admin">ADMIN</label>
-                                <input type="hidden" name="id" value="'.$user['id'].'">
+                                <label for="admin_'.$user['id'].'">ADMIN</label>
+                                <input type="hidden" name="id_'.$user['id'].'" value="'.$user['id'].'">
                                 <button type="submit" name="update_user-submit"><p>UPDATE USER</p></button>
                             </form>
                         </div>
