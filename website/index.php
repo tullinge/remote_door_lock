@@ -57,9 +57,9 @@ if(!isset($_SESSION['access_token']))
  $login_button = '<a href="'.$google_client->createAuthUrl().'"><img src="website_structure/img/btn_google_signin_dark_normal_web.png"></a>';
 }
 
-$email_template_temp = str_replace($_SESSION['given_name'], '§given_name§', $email_template);
-$email_template_temp = str_replace($_SESSION['family_name'], '§family_name§', $email_template_temp);
-$email_template_temp = str_replace($email_domain, '§email_domain§', $email_template_temp);
+$email_template_temp = str_replace('§given_name§', $_SESSION['given_name'], $email_template);
+$email_template_temp = str_replace('§family_name§', $_SESSION['family_name'], $email_template_temp);
+$email_template_temp = str_replace('§email_domain§', $email_domain, $email_template_temp);
 
 ?>
 <html>

@@ -22,14 +22,14 @@ if (isset($_POST['user-submit']))
     else
     {
         // Define email of added user and compairs it to email template.
-        $email_template_temp = str_replace($_POST['given_name'], '§given_name§', $email_template);
-        $email_template_temp = str_replace($_POST['family_name'], '§family_name§', $email_template_temp);
-        $email_template_temp = str_replace($email_domain, '§email_domain§', $email_template_temp);
+        $email_template_temp = str_replace('§given_name§', $_POST['given_name'], $email_template);
+        $email_template_temp = str_replace('§family_name§', $_POST['family_name'], $email_template_temp);
+        $email_template_temp = str_replace('§email_domain§', $email_domain, $email_template_temp);
 
         if (
             (
                 strtolower(substr($email_restriction, 0, 1)) == 'y'
-                && strtolower($email_template_temp) == $_POST['email']
+                && strtolower($email_template_temp) == strtolower($_POST['email'])
             )
             || strtolower(substr($email_restriction, 0, 1)) == 'n'
             || $_POST['rank'] == '3'
@@ -40,7 +40,7 @@ if (isset($_POST['user-submit']))
             if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
             {
                 require "logout-script.php";
-                header('Location: ../index.php?err=not-loged-in-properly');
+                header('Location: ../index.php?err=not-logged-in-properly');
                 exit();
             }
             else
@@ -129,7 +129,7 @@ if (isset($_POST['user-submit']))
         mysqli_close($conn);
     }
 }
-// Sends back error message if the user didn't use the button to access the script.
+// Sends back error message if the user didnt use the button to access the script.
 else
 {
     header('Location: ../index.php?err=Dont-even-try');
