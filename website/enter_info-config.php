@@ -24,7 +24,7 @@ $google_client->addScope('email');
 $google_client->addScope('profile');
 
 // Setting for email restriction
-$email_restriction = ''; // y/yes or n/no
+$email_restriction = 'no'; // y/yes or n/no
 
 // If you have restricted email active this is the ending domain.
 $email_domain = 'gmail.com'; // Defualt "gmail.com"

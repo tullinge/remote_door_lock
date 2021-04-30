@@ -12,7 +12,7 @@ if (isset($_POST['update_user-submit']))
     if (empty($_SESSION['given_name']) || empty($_SESSION['family_name']) || empty($_SESSION['email']))
     {
         require "logout-script.php";
-        header('Location: ../index.php?err=not-loged-in-properly');
+        header('Location: ../index.php?err=not-logged-in-properly');
         exit();
     }
     else
