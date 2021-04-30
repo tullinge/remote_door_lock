@@ -220,7 +220,7 @@
                 }
                 echo '
                                 <label for="admin_'.$user['id'].'">ADMIN</label>
-                                <input type="hidden" name="id_'.$user['id'].'" value="'.$user['id'].'">
+                                <input type="hidden" name="id" value="'.$user['id'].'">
                                 <button type="submit" name="update_user-submit"><p>UPDATE USER</p></button>
                             </form>
                         </div>
