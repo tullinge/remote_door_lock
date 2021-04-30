@@ -35,7 +35,6 @@ int init_oldvalue = 1; // thi
 // This is the setup
 void setup()
 {
-  delay(10000);
   // These lines of code connects to your wi-fi
   Serial.begin(115200); 
   WiFi.begin(ssid, password);  
