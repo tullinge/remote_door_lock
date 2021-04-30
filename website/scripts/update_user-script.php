@@ -56,35 +56,57 @@ if (isset($_POST['update_user-submit']))
                 $_POST['rank'] = $rank;
             }
 
-            // The if statment that checks so the user didn't change the html and try to delete a higher ranking person
-            if ($rank >= $_SESSION['rank'])
+            // Creates a veribel with email template
+            $email_template_temp = str_replace('§given_name§', $_POST['given_name'], $email_template);
+            $email_template_temp = str_replace('§family_name§', $_POST['family_name'], $email_template_temp);
+            $email_template_temp = str_replace('§email_domain§', $email_domain, $email_template_temp);
+
+            // Uses the email template to check if toiy changes is cogin to create a unusebel account by having an incorect email template for USERS and MODERATORS.
+            if (
+                (
+                    strtolower(substr($email_restriction, 0, 1)) == 'y'
+                    && strtolower($email_template_temp) == strtolower($_POST['email'])
+                )
+                || strtolower(substr($email_restriction, 0, 1)) == 'n'
+                || $_POST['rank'] == '3'
+                || $_POST['rank'] == '4'
+            )
             {
-                header('Location: ../user_list.php?err=not-authorized'); 
-                exit();
+                // The if statment that checks so the user didn't change the html and try to delete a higher ranking person
+                if ($rank >= $_SESSION['rank'])
+                {
+                    header('Location: ../user_list.php?err=not-authorized'); 
+                    exit();
+                }
+
+                // Inserts the new users variables into the database.
+                else{
+                    $sql = "UPDATE `RDL_users` SET `given_name`=?, `family_name`=?, `email`=?, `rank`=? WHERE `id` = ?;";
+                    $stmt = mysqli_stmt_init($conn);
+
+                    // Checking if there is a problem with the sql query.
+                    if (!mysqli_stmt_prepare($stmt, $sql))
+                    {
+                        header('Location: ../user_list.php?err=sqlerr2');
+                        exit();
+                    }
+
+                    // removes the user.
+                    else
+                    {
+                        // Inserts the variables into the query.
+                        mysqli_stmt_bind_param($stmt, 'sssii', $_POST['given_name'], $_POST['family_name'], $_POST['email'], $_POST['rank'], $_POST['id']);
+                        mysqli_stmt_execute($stmt);
+                        /*mysqli_stmt_store_result($stmt);*/
+                        header('Location: ../user_list.php?sus=user-updated');
+                        exit();
+                    }
+                }
             }
-
-            // Inserts the new users variables into the database.
-            else{
-                $sql = "UPDATE `RDL_users` SET `given_name`=?, `family_name`=?, `email`=?, `rank`=? WHERE `id` = ?;";
-                $stmt = mysqli_stmt_init($conn);
-
-                // Checking if there is a problem with the sql query.
-                if (!mysqli_stmt_prepare($stmt, $sql))
-                {
-                    header('Location: ../user_list.php?err=sqlerr2');
-                    exit();
-                }
-
-                // removes the user.
-                else
-                {
-                    // Inserts the variables into the query.
-                    mysqli_stmt_bind_param($stmt, 'sssii', $_POST['given_name'], $_POST['family_name'], $_POST['email'], $_POST['rank'], $_POST['id']);
-                    mysqli_stmt_execute($stmt);
-                    /*mysqli_stmt_store_result($stmt);*/
-                    header('Location: ../user_list.php?sus=user-updated');
-                    exit();
-                }
+            else
+            {
+                header('Location: ../user_list.php?err=incompatebel-with-email-template');
+                exit();
             }
         }
     }
