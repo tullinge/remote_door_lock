@@ -119,11 +119,5 @@ to something like
 $sql = "INSERT INTO RDL_log_2 (given_name, family_name, email) VALUES (?, ?, ?)";
 ```
 
-### API
-For the api page you have to make a copy and change the name of it (Recomended to be an id number with RDL(Remote door lock)/RLS(Remote light switch)) and change the tabel to get the corect data, you do this by changing line 4.
-```php
-$sql = "SELECT * FROM RDL_log";
-```
-
 ### ESP32
 On the ESP32 side the only thing you have to change from the first deplayment is the URL ending.

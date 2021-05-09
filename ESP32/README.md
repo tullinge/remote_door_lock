@@ -26,20 +26,6 @@ C:\Users\"Your Name"\Documents\Arduino\Libraries
 ## Variables
 To run the ESP32 you need to fill out the necessary variables in the file [```ESP32_with_serial-out.ino```](ESP32_with_serial-out.ino) 
 
-### Servo or Relay
- The ESP32 file can switch between servo and relay. To make the switch you replace "value" with 0 for relay and 1 for servo:
-
- ````cpp
- int servo = value;
- ````
-### Pin settings
- To make the LED and servo or relay run they need to be connected to a digital output pin. When you have chosen a digital output pin for your LED, servo or relay you need to fill out these variables:
-
- ````cpp
-int output_pin = Enter_pin_num_here; 
-int led_pin = Enter_pin_num_here;
- ````
-
 ### Wi-Fi settings
 To run the ESP32 you need to be connected to a WIFI network. To connect to a network you need to fill out these variables:
 
@@ -53,9 +39,12 @@ To make the ESP32 read of a site you need to
 enter your API instead of the example server name. You can change the URL variable under:
 
 ````cpp
-String serverName = "http://Enter_URL_here/api/Enter_filename_here.php"; 
+String serverName = "http://Enter_Domain_here/api.php?id=Enter_id_here"; 
 ````
+
+### Other settings
+For the pin, servo, toggel, delay and servo extention settings you use the unit list page.(only acessebel for fallback admins) More information about it can be found in [```/website/README.md```](../..website/README.md) under Unit list.
+
 ## Uploading the script
- - Make sure to select the correct board type 
-   - In our case it was the ESP32 PIKO KIT
+ - Make sure to select the correct board type(In our case it was the ESP32 PIKO KIT)
  - Upload to your ESP32 device
