@@ -37,4 +37,7 @@ $email_template = "§given_name§.§family_name§@§email_domain§";
 //start session on web page
 session_start();
 
+header("Pragma: no-cache");
+header("cache-Control: no-cache, must-revalidate");
+
 ?>
