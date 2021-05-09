@@ -17,7 +17,7 @@
             echo '<p>Add user fomr did not have correct template for email.</p>';
         }
 
-        else if ($_GET['err'] == "incompatebel-with-email-template")
+        else if ($_GET['err'] == "incompatible-with-email-template")
         {
             echo '<p>The user you are trying to change will not beable to login becuse of the email restriction.</p>';
         }
