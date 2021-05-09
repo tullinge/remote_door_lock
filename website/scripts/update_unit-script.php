@@ -48,16 +48,6 @@ if (isset($_POST['update_unit-submit']))
                 $_POST['log_table'] = $log_table;
             }
 
-            if (empty($_POST['servo']))
-            {
-                $_POST['servo'] = $servo;
-            }
-
-            if (empty($_POST['toggle']))
-            {
-                $_POST['toggle'] = $toggle;
-            }
-
             if (empty($_POST['delay_timer']))
             {
                 $_POST['delay_timer'] = $delay_timer;
