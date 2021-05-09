@@ -29,8 +29,8 @@ int servo_retracted = 0; // angle to retractto to when deactivated
 
 int value = 0; // This is the amount of lines in table
 int oldvalue = 0; // This is the  old amount of lines in table 
-int toggle_state = -1; // Used of saving the toggle state
-int init_oldvalue = 1; // thi
+int toggle_state = 0; // Used of saving the toggle state
+int init_oldvalue = 0; // this value is used to not get a startup action
 
 // This is the setup
 void setup()
